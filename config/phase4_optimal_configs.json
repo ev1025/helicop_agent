@@ -1,0 +1,189 @@
+{
+  "_description": "Phase 4 Chunk Size Optimization 최적 설정",
+  "_test_date": "2025-12-01",
+  "_total_configs": 12,
+  "_all_success": true,
+
+  "recommended_for_phase5_phase6": {
+    "_comment": "Phase 5/6에서 사용할 최우수 설정",
+    "child_chunk_size": 500,
+    "child_chunk_overlap": 30,
+    "parent_chunk_size": 2500,
+    "parent_chunk_overlap": 250,
+    "comprehensive_score": 55.38,
+    "rag_quality_score": 26.40,
+    "exact_repetition": 83.81,
+    "config_name": "child500_co30_parent2500_po250",
+    "rank": 1,
+    "characteristics": "최고 Comprehensive, 큰 parent로 풍부한 context"
+  },
+
+  "top_3_configs": [
+    {
+      "rank": 1,
+      "name": "child500_co30_parent2500_po250",
+      "child_chunk_size": 500,
+      "child_chunk_overlap": 30,
+      "parent_chunk_size": 2500,
+      "parent_chunk_overlap": 250,
+      "comprehensive": 55.38,
+      "rag_quality": 26.40,
+      "exact_repetition": 83.81,
+      "semantic_redundancy": 99.29,
+      "verbosity": 85.11,
+      "grammatical_particles": 97.86,
+      "use_case": "Phase 5/6 기준선 - 최고 성능"
+    },
+    {
+      "rank": 2,
+      "name": "child300_co100_parent2500_po250",
+      "child_chunk_size": 300,
+      "child_chunk_overlap": 100,
+      "parent_chunk_size": 2500,
+      "parent_chunk_overlap": 250,
+      "comprehensive": 55.19,
+      "rag_quality": 26.76,
+      "exact_repetition": 82.38,
+      "semantic_redundancy": 99.29,
+      "verbosity": 83.92,
+      "grammatical_particles": 97.14,
+      "use_case": "균형형 - 작은 child + 큰 parent"
+    },
+    {
+      "rank": 3,
+      "name": "child400_co100_parent1500_po150",
+      "child_chunk_size": 400,
+      "child_chunk_overlap": 100,
+      "parent_chunk_size": 1500,
+      "parent_chunk_overlap": 150,
+      "comprehensive": 54.63,
+      "rag_quality": 26.98,
+      "exact_repetition": 79.52,
+      "semantic_redundancy": 99.29,
+      "verbosity": 80.83,
+      "grammatical_particles": 97.86,
+      "use_case": "중간 크기 조합"
+    }
+  ],
+
+  "rag_quality_optimized": {
+    "_comment": "RAG Quality 최고 설정 (검색 품질 중시)",
+    "name": "child300_co100_parent1500_po150",
+    "child_chunk_size": 300,
+    "child_chunk_overlap": 100,
+    "parent_chunk_size": 1500,
+    "parent_chunk_overlap": 150,
+    "comprehensive": 54.49,
+    "rag_quality": 27.28,
+    "exact_repetition": 73.33,
+    "characteristics": "최고 RAG Quality, 정밀한 검색"
+  },
+
+  "pattern_analysis": {
+    "child_size_impact": {
+      "size_300": {
+        "avg_comprehensive": 53.93,
+        "avg_rag_quality": 25.36,
+        "recommendation": "RAG Quality 우수"
+      },
+      "size_400": {
+        "avg_comprehensive": 53.38,
+        "avg_rag_quality": 24.97,
+        "recommendation": "가장 낮은 성능"
+      },
+      "size_500": {
+        "avg_comprehensive": 54.18,
+        "avg_rag_quality": 25.58,
+        "recommendation": "✅ 최고 성능"
+      }
+    },
+    "child_overlap_impact": {
+      "overlap_30": {
+        "avg_comprehensive": 53.19,
+        "avg_rag_quality": 24.73
+      },
+      "overlap_100": {
+        "avg_comprehensive": 54.33,
+        "avg_rag_quality": 25.71,
+        "recommendation": "✅ 확실히 우수 (+1.14 comprehensive)"
+      }
+    },
+    "parent_size_impact": {
+      "size_1500": {
+        "avg_comprehensive": 53.69,
+        "avg_rag_quality": 25.61
+      },
+      "size_2500": {
+        "avg_comprehensive": 53.95,
+        "avg_rag_quality": 24.83,
+        "recommendation": "✅ 약간 우수, Exact Repetition 높음"
+      }
+    }
+  },
+
+  "phase5_recommendations": {
+    "_comment": "Phase 5에서 고정할 Chunk 설정",
+    "fixed_chunk_config": {
+      "child_chunk_size": 500,
+      "child_chunk_overlap": 30,
+      "parent_chunk_size": 2500,
+      "parent_chunk_overlap": 250
+    },
+    "test_variables": [
+      "embedding_model",
+      "reranker_model"
+    ]
+  },
+
+  "phase6_recommendations": {
+    "_comment": "Phase 6에서 테스트할 Chunk 조합",
+    "chunk_candidates": [
+      {
+        "priority": 1,
+        "name": "child500_co30_parent2500_po250",
+        "reason": "최고 Comprehensive"
+      },
+      {
+        "priority": 2,
+        "name": "child300_co100_parent2500_po250",
+        "reason": "균형형"
+      },
+      {
+        "priority": 3,
+        "name": "child300_co100_parent1500_po150",
+        "reason": "최고 RAG Quality"
+      }
+    ],
+    "combine_with": {
+      "rag_params": "Phase 2 top 3 (reference, aggressive, balanced)",
+      "llm_params": "Phase 3 최적값",
+      "models": "Phase 5 최적 embedding/reranker"
+    }
+  },
+
+  "performance_improvement": {
+    "vs_phase2": {
+      "phase2_best_comprehensive": 53.91,
+      "phase4_best_comprehensive": 55.38,
+      "improvement": "+1.47",
+      "phase2_best_rag_quality": 25.18,
+      "phase4_best_rag_quality": 26.40,
+      "improvement_rag": "+1.22"
+    }
+  },
+
+  "all_results_summary": {
+    "child300_co30_parent1500_po150": {"rank": 9, "comprehensive": 53.54, "rag_quality": 23.92},
+    "child300_co30_parent2500_po250": {"rank": 11, "comprehensive": 52.48, "rag_quality": 23.47},
+    "child300_co100_parent1500_po150": {"rank": 4, "comprehensive": 54.49, "rag_quality": 27.28},
+    "child300_co100_parent2500_po250": {"rank": 2, "comprehensive": 55.19, "rag_quality": 26.76},
+    "child400_co30_parent1500_po150": {"rank": 10, "comprehensive": 52.68, "rag_quality": 23.60},
+    "child400_co30_parent2500_po250": {"rank": 7, "comprehensive": 53.43, "rag_quality": 24.82},
+    "child400_co100_parent1500_po150": {"rank": 3, "comprehensive": 54.63, "rag_quality": 26.98},
+    "child400_co100_parent2500_po250": {"rank": 8, "comprehensive": 52.76, "rag_quality": 24.48},
+    "child500_co30_parent1500_po150": {"rank": 6, "comprehensive": 53.65, "rag_quality": 26.17},
+    "child500_co30_parent2500_po250": {"rank": 1, "comprehensive": 55.38, "rag_quality": 26.40},
+    "child500_co100_parent1500_po150": {"rank": 7, "comprehensive": 53.45, "rag_quality": 25.30},
+    "child500_co100_parent2500_po250": {"rank": 5, "comprehensive": 54.24, "rag_quality": 24.46}
+  }
+}

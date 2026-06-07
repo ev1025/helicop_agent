@@ -1,0 +1,31 @@
+비행이론(헬리콥터)
+·53  
+Tandem Rotors(Dual Rotor) 
+두 개의 큰 수평 Rotor 결합체가 있으며, 각각의 
+Torque를 상쇄시키기 위해 서로 반대 방향으로 회
+전하는 Main Rotor를 사용한다. Single Rotor 헬
+리콥터의 경우에는 Torque를 상쇄하기 위해 Power
+를 활용해야 하지만, Tandem Rotor 헬리콥터는 엔
+진으로부터 생성된 모든 Power를 양력에 활용할 수 
+있다. 이러한 이유로 인해 Tandem Rotor 헬리콥터
+는 가장 강력하고 빠른 헬리콥터에 속한다.
+Coaxial Rotors
+서로 반대 방향으로 회전하는 한 쌍의 Rotor가 같은 
+회전축에 위, 아래로 설치된다. 동축 Rotor(Coaxial 
+Rotor)는 Russian Kamov Helicopter 회사에 의해 
+만들어진 헬리콥터에서 두드러지게 나타난다.
+Intermeshing Rotors
+서로 반대 방향으로 회전하는 두 개의 Rotor로 구
+성되어 있으며, 각 Blade가 서로 충돌하지 않게 약간 
+기울어진 형태로 설치되어 있다. 이러한 배열은 헬리
+콥터가 Tail Rotor를 필요로 하지 않게 만든다. 이러
+한 설정은 때로 싱크롭터(Synchropter)로 불린다.
+페네스트론(Fenestron)
+다른 Anti-Torque 시스템으로 페네스트론 또는 
+‘꼬리날개에 팬(Fan-in-Tail)이 있는 형태’가 있다. 
+이 장치는 회전 Blade가 수직 꼬리날개 내부의 원형
+도관에 들어 있는 구조로, 지상에서 사람이나 물체
+에 부딪칠 염려가 거의 없다.
+[그림 2-50] Tandem Rotor helicopters
+[그림 2-52] intermeshing Rotor helicopter
+[그림 2-51] Coaxial Rotor helicopter

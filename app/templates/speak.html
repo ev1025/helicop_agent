@@ -1,0 +1,1541 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음성 채팅</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 헤더 스타일 */
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* TTS 제어 스타일 */
+        .tts-controls {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            padding: 8px 12px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tts-toggle {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tts-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .tts-status {
+            padding: 3px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tts-enabled {
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+        }
+
+        .tts-disabled {
+            background-color: rgba(244, 67, 54, 0.8);
+            color: white;
+        }
+
+        .rate-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            font-size: 11px;
+        }
+
+        .rate-control input[type="range"] {
+            width: 60px;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .rate-control input[type="range"]::-webkit-slider-thumb {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-appearance: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .rate-value {
+            min-width: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        /* 뒤로가기 버튼 */
+        .back-button {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) translateX(-2px);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0;
+            animation: messageAppear 0.3s ease-out forwards;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            margin-right: auto;
+        }
+
+        .message-info {
+            background: #e3f2fd !important;
+            color: #1976d2 !important;
+            font-style: italic;
+            border-left: 4px solid #2196f3;
+        }
+
+        .message-error {
+            background: #ffebee !important;
+            color: #c62828 !important;
+            border-left: 4px solid #f44336;
+        }
+
+        /* 문서 상세 정보 스타일 */
+        .doc-details {
+            background: #f0f8ff !important;
+            color: #2c5aa0 !important;
+            border-left: 4px solid #4CAF50;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 10px 0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .doc-details ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .doc-details li {
+            margin: 4px 0;
+            color: #1565c0;
+        }
+
+        .doc-info-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 16px;
+            font-size: 10px;
+            margin-right: 6px;
+            font-weight: bold;
+        }
+
+        /* 음성 채팅 전용 컨트롤 영역 */
+        .voice-controls {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .status-indicator {
+            text-align: center;
+            padding: 10px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .status-ready {
+            background: #e8f5e8;
+            color: #2e7d2e;
+        }
+
+        .status-recording {
+            background: #fff3e0;
+            color: #ef6c00;
+        }
+
+        .status-processing {
+            background: #e3f2fd;
+            color: #1976d2;
+        }
+
+        .status-error {
+            background: #ffebee;
+            color: #c62828;
+        }
+
+        .permission-request {
+            text-align: center;
+            padding: 20px;
+            background: #fff3e0;
+            color: #ef6c00;
+            border-radius: 10px;
+            margin: 10px 0;
+        }
+
+        .permission-button {
+            padding: 10px 20px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            margin-top: 10px;
+        }
+
+        .permission-button:hover {
+            background: #f57c00;
+        }
+
+        /* 볼륨 시각화 */
+        .volume-visualizer {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 2px;
+            height: 40px;
+            margin: 10px 0;
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .volume-visualizer.active {
+            opacity: 1;
+        }
+
+        .volume-bar {
+            width: 4px;
+            background: #4CAF50;
+            border-radius: 2px;
+            transition: height 0.1s ease;
+            min-height: 4px;
+        }
+
+        .volume-bar:nth-child(even) {
+            background: #45a049;
+        }
+
+        .volume-bar:nth-child(3n) {
+            background: #66bb6a;
+        }
+
+        /* 침묵 타이머 */
+        .silence-timer {
+            display: none;
+            text-align: center;
+            padding: 10px;
+            background: rgba(255, 152, 0, 0.1);
+            border: 1px solid #ff9800;
+            border-radius: 10px;
+            margin: 10px 0;
+            font-size: 14px;
+            color: #ef6c00;
+        }
+
+        .silence-timer.active {
+            display: block;
+            animation: timerPulse 1s infinite;
+        }
+
+        @keyframes timerPulse {
+            0%, 100% { opacity: 0.8; }
+            50% { opacity: 1; }
+        }
+
+        .timer-progress {
+            width: 100%;
+            height: 4px;
+            background: rgba(255, 152, 0, 0.3);
+            border-radius: 2px;
+            margin-top: 8px;
+            overflow: hidden;
+        }
+
+        .timer-fill {
+            height: 100%;
+            background: #ff9800;
+            border-radius: 2px;
+            transition: width 0.1s linear;
+            width: 0%;
+        }
+
+        .recording-controls {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+            align-items: center;
+        }
+
+        .record-button {
+            padding: 15px 30px;
+            background: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .record-button:hover {
+            background: #45a049;
+            transform: translateY(-2px);
+        }
+
+        .record-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .record-button.recording {
+            background: #f44336;
+            animation: pulse 1s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        .stop-button {
+            padding: 15px 30px;
+            background: #ff9800;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .stop-button:hover {
+            background: #f57c00;
+        }
+
+        .reset-button {
+            padding: 10px 20px;
+            background: #9e9e9e;
+            color: white;
+            border: none;
+            border-radius: 20px;
+            font-size: 14px;
+            cursor: pointer;
+        }
+
+        .reset-button:hover {
+            background: #757575;
+        }
+
+        /* chat.html과 동일한 스타일 추가 */
+        .typing-indicator {
+            display: none;
+            padding: 10px 20px;
+            font-style: italic;
+            color: #666;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .typing-dots {
+            display: inline-block;
+        }
+
+        .typing-dots::after {
+            content: '';
+            display: inline-block;
+            animation: typing 1.5s infinite;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                content: '';
+            }
+            20% {
+                content: '.';
+            }
+            40% {
+                content: '..';
+            }
+            60% {
+                content: '...';
+            }
+        }
+
+        .loading {
+            /* opacity: 0.7; */
+            pointer-events: none;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .connection-status.online {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .connection-status.offline {
+            background: #f44336;
+            color: white;
+        }
+
+        .tts-speaking {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: none;
+            z-index: 1000;
+            animation: pulse 1.5s infinite;
+        }
+
+        /* 텍스트 서식 스타일 */
+        .message-content strong {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .message-content strong em {
+            font-style: italic;
+            color: #d32f2f;
+            background-color: rgba(211, 47, 47, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .message-content .header-1 {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .message-content .header-2 {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #34495e;
+            margin: 8px 0;
+        }
+
+        .message-content .header-3 {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .message-content .header-4 {
+            font-weight: bold;
+            color: #1976d2;
+            margin: 5px 0;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 900px) {
+            .chat-container {
+                width: 95%;
+                height: 90vh;
+                border-radius: 15px;
+            }
+
+            .chat-header {
+                padding: 15px;
+                font-size: 20px;
+            }
+
+            .tts-controls {
+                right: 10px;
+                flex-direction: column;
+                gap: 6px;
+                padding: 6px 8px;
+            }
+
+            .rate-control {
+                gap: 4px;
+            }
+
+            .rate-control input[type="range"] {
+                width: 50px;
+            }
+
+            .back-button {
+                left: 10px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .volume-visualizer {
+                height: 30px;
+            }
+
+            .volume-bar {
+                width: 3px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .message-content {
+                max-width: 85%;
+                padding: 10px 14px;
+            }
+
+            .tts-controls {
+                right: 5px;
+                padding: 4px 6px;
+                gap: 4px;
+            }
+
+            .tts-toggle {
+                padding: 3px 6px;
+                font-size: 10px;
+            }
+
+            .tts-status {
+                font-size: 9px;
+                padding: 2px 4px;
+            }
+
+            .rate-control {
+                font-size: 10px;
+            }
+
+            .rate-control input[type="range"] {
+                width: 40px;
+            }
+
+            .rate-value {
+                font-size: 9px;
+            }
+
+            .doc-details {
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <button class="back-button" onclick="window.location.href='/'">← 뒤로</button>
+            <span>🎤 음성 채팅</span>
+            <div class="tts-controls">
+                <button class="tts-toggle" id="tts-toggle" onclick="toggleTTS()">🔊 TTS</button>
+                <span class="tts-status tts-enabled" id="tts-status">ON</span>
+                <div class="rate-control">
+                    <span>속도</span>
+                    <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1.3">
+                    <span class="rate-value" id="rate-value">1.3</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="connection-status online" id="connectionStatus">온라인</div>
+        <div class="tts-speaking" id="ttsSpeaking">🎵 음성 재생중...</div>
+
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">
+                    안녕하세요! 🎤 음성으로 채팅해보세요.<br>
+                    말씀하시면 AI가 답변해드립니다.<br>
+                    🔊 TTS 기능이 활성화되어 답변을 음성으로 들을 수 있습니다.
+                </div>
+            </div>
+        </div>
+
+        <!-- chat.html과 동일한 타이핑 인디케이터 추가 -->
+        <div class="typing-indicator" id="typingIndicator">
+            AI가 답변을 생성중입니다<span class="typing-dots"></span>
+        </div>
+
+        <div class="voice-controls">
+            <div class="status-indicator status-ready" id="statusIndicator">
+                🎤 마이크 권한이 필요합니다
+            </div>
+
+            <div class="permission-request" id="permissionRequest" style="display: none;">
+                <div>권한 허용</div>
+                <div style="margin: 10px 0;">🎤</div>
+                <div>마이크 권한을 허용해주세요</div>
+                <button class="permission-button" onclick="requestMicrophonePermission()">허용</button>
+            </div>
+
+            <div class="volume-visualizer" id="volumeVisualizer">
+                <div class="volume-bar" id="bar1"></div>
+                <div class="volume-bar" id="bar2"></div>
+                <div class="volume-bar" id="bar3"></div>
+                <div class="volume-bar" id="bar4"></div>
+                <div class="volume-bar" id="bar5"></div>
+                <div class="volume-bar" id="bar6"></div>
+                <div class="volume-bar" id="bar7"></div>
+                <div class="volume-bar" id="bar8"></div>
+                <div class="volume-bar" id="bar9"></div>
+                <div class="volume-bar" id="bar10"></div>
+                <div class="volume-bar" id="bar11"></div>
+                <div class="volume-bar" id="bar12"></div>
+                <div class="volume-bar" id="bar13"></div>
+                <div class="volume-bar" id="bar14"></div>
+                <div class="volume-bar" id="bar15"></div>
+                <div class="volume-bar" id="bar16"></div>
+                <div class="volume-bar" id="bar17"></div>
+                <div class="volume-bar" id="bar18"></div>
+                <div class="volume-bar" id="bar19"></div>
+                <div class="volume-bar" id="bar20"></div>
+            </div>
+
+            <div class="silence-timer" id="silenceTimer">
+                <div>🔇 침묵 감지됨 - <span id="timerCountdown">2</span>초 후 자동 종료</div>
+                <div class="timer-progress">
+                    <div class="timer-fill" id="timerFill"></div>
+                </div>
+            </div>
+
+            <div class="recording-controls" id="recordingControls" style="display: none;">
+                <button class="record-button" id="recordButton" onclick="toggleRecording()">
+                    🎤 녹음 시작
+                </button>
+                <button class="stop-button" id="stopButton" onclick="stopRecording()" style="display: none;">
+                    중지
+                </button>
+                <button class="reset-button" id="resetButton" onclick="resetChat()">
+                    초기화
+                </button>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // ===== 전역 상태 관리 객체 (chat.html과 동일한 구조) =====
+        const clientState = {
+            isGenerating: false,
+            isRecording: false,
+            ttsQueue: [],
+            ttsProcessing: false,
+            lastMessageId: null,
+            currentEventSource: null,
+            currentUtterance: null,
+            messageCounter: 0
+        };
+
+        // DOM 요소 참조 (chat.html과 동일)
+        const chatMessages = document.getElementById('chatMessages');
+        const statusIndicator = document.getElementById('statusIndicator');
+        const permissionRequest = document.getElementById('permissionRequest');
+        const recordingControls = document.getElementById('recordingControls');
+        const recordButton = document.getElementById('recordButton');
+        const stopButton = document.getElementById('stopButton');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const typingIndicator = document.getElementById('typingIndicator'); // chat.html 스타일 추가
+
+        // TTS 관련 요소
+        const ttsToggle = document.getElementById('tts-toggle');
+        const ttsStatus = document.getElementById('tts-status');
+        const ttsRate = document.getElementById('tts-rate');
+        const rateValue = document.getElementById('rate-value');
+        const ttsSpeaking = document.getElementById('ttsSpeaking');
+
+        // 볼륨 시각화 및 침묵 타이머 요소
+        const volumeVisualizer = document.getElementById('volumeVisualizer');
+        const silenceTimer = document.getElementById('silenceTimer');
+        const timerCountdown = document.getElementById('timerCountdown');
+        const timerFill = document.getElementById('timerFill');
+        const volumeBars = [];
+        for (let i = 1; i <= 20; i++) {
+            volumeBars.push(document.getElementById(`bar${i}`));
+        }
+
+        // 음성 인식 및 오디오 분석 변수
+        let recognition = null;
+        let audioContext = null;
+        let analyser = null;
+        let microphone = null;
+        let dataArray = null;
+        let animationId = null;
+        let silenceStartTime = null;
+        let silenceThreshold = 2000;
+        let silenceCheckInterval = null;
+        let timerInterval = null;
+
+        // TTS 관련 변수
+        let ttsEnabled = true;
+        let speechSynthesis = window.speechSynthesis;
+
+        // ===== chat.html과 동일한 UI 함수들 추가 =====
+        function showTyping() {
+            typingIndicator.style.display = 'block';
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 10);
+        }
+
+        function hideTyping() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function setGenerating(generating) {
+            clientState.isGenerating = generating;
+            
+            if (generating) {
+                document.body.classList.add('loading');
+                showTyping();
+                
+                // TTS 초기화
+                clientState.ttsQueue = [];
+                clientState.ttsProcessing = false;
+            } else {
+                document.body.classList.remove('loading');
+                hideTyping();
+            }
+        }
+
+        // ===== chat.html과 동일한 메시지 포맷팅 함수들 =====
+        function formatTextForHTML(text) {
+            let escaped = text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;');
+            
+            escaped = escaped
+                .replace(/\\n/g, '\n')
+                .replace(/\\r/g, '\r')
+                .replace(/\\t/g, '\t');
+            
+            escaped = escaped.replace(/^####\s*(.+)$/gm, '<br><span class="header-4">$1</span><br>');
+            escaped = escaped.replace(/^###\s*(.+)$/gm, '<span class="header-3">$1</span>');
+            escaped = escaped.replace(/^##\s*(.+)$/gm, '<br><span class="header-2">$1</span><br>');
+            escaped = escaped.replace(/^#\s*(.+)$/gm, '<br><span class="header-1">$1</span><br>');
+            
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            escaped = escaped.replace(/&quot;([^&]+?)&quot;/g, '<strong><em>$1</em></strong>');
+            escaped = escaped.replace(/\\([^\\]+)\\/g, '<strong><em>$1</em></strong>');
+            escaped = escaped.replace(/\[([^\]]+)\]/g, '<strong><em>$1</em></strong>');
+            
+            return escaped.replace(/\n/g, '<br>');
+        }
+
+        function formatDocumentInfo(documents) {
+            if (!documents || documents.length === 0) return '';
+            
+            let html = '<div style="margin: 8px 0;"><strong>📋 참고 문서 목록:</strong></div><ul>';
+            
+            documents.forEach((doc, index) => {
+                html += `<li><span class="doc-info-icon">${index + 1}</span>${doc}</li>`;
+            });
+            
+            html += '</ul>';
+            return html;
+        }
+
+        // ===== chat.html과 동일한 메시지 관리 함수 =====
+        function addMessage(content, type = 'user', streaming = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = `message-${++clientState.messageCounter}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            if (type === 'info') {
+                contentDiv.className += ' message-info';
+            } else if (type === 'error') {
+                contentDiv.className += ' message-error';
+            } else if (type === 'rag_info') {
+                contentDiv.className += ' message-info';
+                contentDiv.style.borderLeft = '4px solid #4CAF50';
+                contentDiv.style.backgroundColor = '#e8f5e8';
+            } else if (type === 'doc_details') {
+                contentDiv.className += ' doc-details';
+            }
+            
+            if (!streaming) {
+                const formattedContent = formatTextForHTML(content);
+                contentDiv.innerHTML = formattedContent;
+            }
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 10);
+            
+            return contentDiv;
+        }
+
+        // ===== 강화된 초기화 함수들 =====
+        function clearTTSQueue() {
+            speechSynthesis.cancel();
+            clientState.ttsQueue = [];
+            clientState.ttsProcessing = false;
+            clientState.currentUtterance = null;
+            ttsSpeaking.style.display = 'none';
+            console.log('TTS 큐 완전 초기화');
+        }
+
+        function clearAllTimers() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            if (silenceCheckInterval) {
+                clearInterval(silenceCheckInterval);
+                silenceCheckInterval = null;
+            }
+        }
+
+        function stopCurrentEventSource() {
+            if (clientState.currentEventSource) {
+                clientState.currentEventSource.close();
+                clientState.currentEventSource = null;
+                console.log('EventSource 연결 종료');
+            }
+        }
+
+        function resetChat() {
+            console.log('채팅 완전 초기화 시작');
+            
+            stopCurrentEventSource();
+            clearTTSQueue();
+            clearAllTimers();
+            
+            if (recognition && clientState.isRecording) {
+                recognition.stop();
+            }
+            
+            clientState.isGenerating = false;
+            clientState.isRecording = false;
+            clientState.lastMessageId = null;
+            clientState.messageCounter = 0;
+            silenceStartTime = null;
+            
+            // ✅ chat.html과 동일한 초기 메시지 스타일
+            chatMessages.innerHTML = `
+                <div class="message bot">
+                    <div class="message-content">
+                        안녕하세요! 🎤 음성으로 채팅해보세요.<br>
+                        말씀하시면 AI가 답변해드립니다.<br>
+                        🔊 TTS 기능이 활성화되어 답변을 음성으로 들을 수 있습니다.
+                    </div>
+                </div>
+            `;
+            
+            stopVolumeVisualization();
+            stopSilenceTimer();
+            updateRecordingUI();
+            updateStatus('ready', '음성 녹음을 시작하려면 버튼을 클릭하세요');
+            
+            console.log('채팅 완전 초기화 완료');
+        }
+
+        // ===== TTS 관련 함수들 (기존 코드 유지) =====
+        function initializeTTSState() {
+            if (ttsEnabled) {
+                ttsToggle.innerHTML = '🔇 OFF';
+                ttsStatus.textContent = 'ON';
+                ttsStatus.className = 'tts-status tts-enabled';
+            }
+            const currentRate = ttsRate.value;
+            rateValue.textContent = currentRate;
+            console.log(`TTS 초기화: 활성화=${ttsEnabled}, 속도=${currentRate}`);
+        }
+
+        function toggleTTS() {
+            ttsEnabled = !ttsEnabled;
+            
+            if (ttsEnabled) {
+                ttsToggle.innerHTML = '🔇 OFF';
+                ttsStatus.textContent = 'ON';
+                ttsStatus.className = 'tts-status tts-enabled';
+            } else {
+                ttsToggle.innerHTML = '🔊 TTS';
+                ttsStatus.textContent = 'OFF';
+                ttsStatus.className = 'tts-status tts-disabled';
+                
+                clearTTSQueue();
+            }
+        }
+
+        function addToTTSQueue(text) {
+            if (!ttsEnabled || !text.trim()) return;
+            
+            const cleanText = text.trim()
+                .replace(/<[^>]*>/g, '')
+                .replace(/&[^;]+;/g, ' ')
+                .replace(/\*\*(.*?)\*\*/g, '$1')
+                .replace(/\*(.*?)\*/g, '$1')
+                .replace(/#{1,6}\s*([^#\n]+)/g, '$1')
+                .replace(/[📚📖🎤🔄🎯🗣️🤖💡✅❌🧠]/g, '')
+                .replace(/\[([^\]]+)\]/g, '$1')
+                .replace(/[*#@|~^{}\\`]/g, '')
+                .trim();
+            
+            if (!cleanText) return;
+            
+            clientState.ttsQueue.push(cleanText);
+            console.log(`TTS 큐 추가: "${cleanText.substring(0, 30)}..." (큐 크기: ${clientState.ttsQueue.length})`);
+            
+            if (!clientState.ttsProcessing) {
+                processTTSQueue();
+            }
+        }
+
+        async function processTTSQueue() {
+            if (clientState.ttsProcessing || clientState.ttsQueue.length === 0 || !ttsEnabled) return;
+            
+            clientState.ttsProcessing = true;
+            
+            while (clientState.ttsQueue.length > 0 && ttsEnabled) {
+                const text = clientState.ttsQueue.shift();
+                
+                try {
+                    await speakTextAsync(text);
+                    console.log(`TTS 처리 완료: "${text.substring(0, 30)}..."`);
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                } catch (error) {
+                    console.error('TTS 처리 오류:', error);
+                    continue;
+                }
+            }
+            
+            clientState.ttsProcessing = false;
+            console.log('TTS 큐 처리 완료');
+        }
+
+        function speakTextAsync(text) {
+            return new Promise((resolve, reject) => {
+                if (!ttsEnabled || !text.trim()) {
+                    resolve();
+                    return;
+                }
+                
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR';
+                utterance.rate = parseFloat(ttsRate.value);
+                utterance.pitch = 1.0;
+                utterance.volume = 0.8;
+                
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => 
+                    voice.lang.includes('ko') || 
+                    voice.name.includes('Korean') || 
+                    voice.name.includes('한국')
+                ) || voices.find(voice => voice.default);
+                
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                utterance.onstart = () => {
+                    ttsSpeaking.style.display = 'block';
+                    ttsSpeaking.textContent = '🎵 음성 재생중...';
+                    clientState.currentUtterance = utterance;
+                };
+                
+                utterance.onend = () => {
+                    ttsSpeaking.style.display = 'none';
+                    clientState.currentUtterance = null;
+                    resolve();
+                };
+                
+                utterance.onerror = (event) => {
+                    ttsSpeaking.style.display = 'none';
+                    clientState.currentUtterance = null;
+                    console.error('TTS 오류:', event.error);
+                    reject(event.error);
+                };
+                
+                speechSynthesis.speak(utterance);
+            });
+        }
+
+        ttsRate.addEventListener('input', function() {
+            rateValue.textContent = this.value;
+        });
+
+        // ===== 볼륨 분석 및 시각화 (기존 코드) =====
+        async function initializeAudioAnalysis() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({ audio: true });
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                microphone = audioContext.createMediaStreamSource(stream);
+                
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+                
+                microphone.connect(analyser);
+                
+                console.log('오디오 분석 초기화 완료');
+                return true;
+            } catch (error) {
+                console.error('오디오 분석 초기화 실패:', error);
+                return false;
+            }
+        }
+
+        function startVolumeVisualization() {
+            if (!analyser || !dataArray) return;
+            
+            volumeVisualizer.classList.add('active');
+            
+            function animate() {
+                if (!clientState.isRecording) {
+                    volumeVisualizer.classList.remove('active');
+                    return;
+                }
+                
+                analyser.getByteFrequencyData(dataArray);
+                
+                let sum = 0;
+                for (let i = 0; i < dataArray.length; i++) {
+                    sum += dataArray[i];
+                }
+                const average = sum / dataArray.length;
+                
+                if (average < 10) {
+                    if (!silenceStartTime) {
+                        silenceStartTime = Date.now();
+                        startSilenceTimer();
+                    }
+                } else {
+                    if (silenceStartTime) {
+                        silenceStartTime = null;
+                        stopSilenceTimer();
+                    }
+                }
+                
+                volumeBars.forEach((bar, index) => {
+                    const intensity = Math.max(dataArray[index * 2] || 0, dataArray[index * 2 + 1] || 0);
+                    const height = Math.max(4, (intensity / 255) * 36);
+                    bar.style.height = `${height}px`;
+                });
+                
+                animationId = requestAnimationFrame(animate);
+            }
+            
+            animate();
+        }
+
+        function stopVolumeVisualization() {
+            if (animationId) {
+                cancelAnimationFrame(animationId);
+                animationId = null;
+            }
+            volumeVisualizer.classList.remove('active');
+            
+            volumeBars.forEach(bar => {
+                bar.style.height = '4px';
+            });
+        }
+
+        function startSilenceTimer() {
+            silenceTimer.classList.add('active');
+            let timeLeft = 2;
+            timerCountdown.textContent = timeLeft;
+            timerFill.style.width = '0%';
+            
+            timerInterval = setInterval(() => {
+                timeLeft -= 0.1;
+                const progress = ((2 - timeLeft) / 2) * 100;
+                timerFill.style.width = `${progress}%`;
+                timerCountdown.textContent = Math.ceil(timeLeft);
+                
+                if (timeLeft <= 0) {
+                    clearInterval(timerInterval);
+                    if (clientState.isRecording) {
+                        console.log('침묵 타이머로 인한 녹음 종료');
+                        stopRecording();
+                    }
+                }
+            }, 100);
+        }
+
+        function stopSilenceTimer() {
+            silenceTimer.classList.remove('active');
+            if (timerInterval) {
+                clearInterval(timerInterval);
+                timerInterval = null;
+            }
+            timerFill.style.width = '0%';
+        }
+
+        // 연결 상태 관리
+        function updateConnectionStatus(online) {
+            if (online) {
+                connectionStatus.textContent = '온라인';
+                connectionStatus.className = 'connection-status online';
+            } else {
+                connectionStatus.textContent = '오프라인';
+                connectionStatus.className = 'connection-status offline';
+            }
+        }
+
+        window.addEventListener('online', () => updateConnectionStatus(true));
+        window.addEventListener('offline', () => updateConnectionStatus(false));
+
+        // 음성 인식 초기화
+        function initializeSpeechRecognition() {
+            if ('webkitSpeechRecognition' in window) {
+                recognition = new webkitSpeechRecognition();
+            } else if ('SpeechRecognition' in window) {
+                recognition = new SpeechRecognition();
+            } else {
+                updateStatus('error', '음성 인식을 지원하지 않는 브라우저입니다.');
+                return false;
+            }
+
+            recognition.continuous = false;
+            recognition.interimResults = false;
+            recognition.lang = 'ko-KR';
+
+            recognition.onstart = () => {
+                console.log('음성 인식 시작');
+                clientState.isRecording = true;
+                updateStatus('recording', '녹음 중... (2초간 침묵하면 자동 종료)');
+                silenceStartTime = null;
+                startVolumeVisualization();
+            };
+
+            recognition.onresult = (event) => {
+                const result = event.results[0][0].transcript;
+                console.log('음성 인식 결과:', result);
+                
+                if (result.trim()) {
+                    addMessage(result, 'user');
+                    sendMessageToAI(result);
+                }
+            };
+
+            recognition.onerror = (event) => {
+                console.error('음성 인식 오류:', event.error);
+                updateStatus('error', '음성 인식 오류가 발생했습니다.');
+                clientState.isRecording = false;
+                updateRecordingUI();
+                stopVolumeVisualization();
+                stopSilenceTimer();
+            };
+
+            recognition.onend = () => {
+                console.log('음성 인식 종료');
+                clientState.isRecording = false;
+                updateRecordingUI();
+                stopVolumeVisualization();
+                stopSilenceTimer();
+            };
+
+            return true;
+        }
+
+        async function requestMicrophonePermission() {
+            try {
+                await navigator.mediaDevices.getUserMedia({ audio: true });
+                permissionRequest.style.display = 'none';
+                recordingControls.style.display = 'flex';
+                updateStatus('ready', '음성 녹음을 시작하려면 버튼을 클릭하세요');
+                
+                await initializeAudioAnalysis();
+                
+                if (!initializeSpeechRecognition()) {
+                    return;
+                }
+            } catch (error) {
+                console.error('마이크 권한 오류:', error);
+                updateStatus('error', '마이크 권한이 거부되었습니다.');
+            }
+        }
+
+        function toggleRecording() {
+            if (clientState.isRecording) {
+                stopRecording();
+            } else {
+                startRecording();
+            }
+        }
+
+        function startRecording() {
+            if (!recognition) {
+                updateStatus('error', '음성 인식이 초기화되지 않았습니다.');
+                return;
+            }
+
+            if (ttsEnabled && speechSynthesis.speaking) {
+                clearTTSQueue();
+            }
+
+            stopCurrentEventSource();
+
+            try {
+                recognition.start();
+                updateRecordingUI();
+            } catch (error) {
+                console.error('녹음 시작 오류:', error);
+                updateStatus('error', '녹음을 시작할 수 없습니다.');
+            }
+        }
+
+        function stopRecording() {
+            if (recognition && clientState.isRecording) {
+                recognition.stop();
+            }
+            stopSilenceTimer();
+        }
+
+        function updateRecordingUI() {
+            if (clientState.isRecording) {
+                recordButton.textContent = '🛑 녹음 중지';
+                recordButton.classList.add('recording');
+                stopButton.style.display = 'inline-block';
+            } else {
+                recordButton.textContent = '🎤 녹음 시작';
+                recordButton.classList.remove('recording');
+                stopButton.style.display = 'none';
+                updateStatus('ready', '음성 녹음을 시작하려면 버튼을 클릭하세요');
+            }
+        }
+
+        function updateStatus(type, message) {
+            statusIndicator.className = `status-indicator status-${type}`;
+            statusIndicator.textContent = message;
+        }
+
+        function generateMessageId() {
+            return Date.now().toString() + Math.random().toString(36).substr(2, 9);
+        }
+
+        function isDuplicateMessage(messageId) {
+            if (clientState.lastMessageId === messageId) {
+                console.log('중복 메시지 차단:', messageId);
+                return true;
+            }
+            return false;
+        }
+
+        // ===== ✅ chat.html과 동일한 스타일의 AI 응답 처리 =====
+        async function sendMessageToAI(message) {
+            if (clientState.isGenerating) {
+                console.log('이미 응답 생성 중 - 요청 차단');
+                return;
+            }
+
+            clientState.isGenerating = true;
+            setGenerating(true); // ✅ chat.html과 동일한 로딩 UI
+
+            const messageId = generateMessageId();
+            clientState.lastMessageId = messageId;
+
+            try {
+                // CHANGES.md #013: agent_v2 라우트로 전환. GET + query string.
+                const response = await fetch(
+                    `/chat/v2/stream?message=${encodeURIComponent(message)}&mode=multi`,
+                    { method: 'GET' }
+                );
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                let botMessageDiv = null;
+                let botContent = '';
+                let buffer = '';
+                let lastUpdateTime = Date.now(); // ✅ chat.html과 동일한 업데이트 제한
+
+                clientState.currentEventSource = { reader, controller: new AbortController() };
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        if (!botContent.trim()) {
+                            addMessage('응답을 받지 못했습니다. 다시 시도해주세요.', 'error');
+                        }
+                        break;
+                    }
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    buffer += chunk;
+                    
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ') && line.length > 6) {
+                            try {
+                                const jsonStr = line.substring(6).trim();
+                                if (!jsonStr) continue;
+                                
+                                const data = JSON.parse(jsonStr);
+                                console.log('받은 데이터:', data);
+                                
+                                if (data.message_id && isDuplicateMessage(data.message_id)) {
+                                    continue;
+                                }
+                                
+                                // ✅ chat.html과 동일한 메시지 타입 처리
+                                if (data.type === 'error') {
+                                    addMessage(data.content, 'error');
+                                } else if (data.type === 'info') {
+                                    addMessage(data.content, 'info');
+                                } else if (data.type === 'rag_info') {
+                                    addMessage(data.content, 'rag_info');
+                                } else if (data.type === 'doc_details') {
+                                    const docDetailsDiv = addMessage('', 'doc_details', true);
+                                    docDetailsDiv.innerHTML = formatDocumentInfo(data.documents);
+                                } else if (data.type === 'user_speech') {
+                                    // 이미 사용자 메시지는 추가했으므로 스킵
+                                } else if (data.type === 'text') {
+                                    if (!botMessageDiv) {
+                                        botMessageDiv = addMessage('', 'bot', true);
+                                        botContent = '';
+                                    }
+                                    
+                                    botContent += data.content;
+                                    const formattedContent = formatTextForHTML(botContent);
+                                    botMessageDiv.innerHTML = formattedContent;
+                                    
+                                    // ✅ chat.html과 동일한 스크롤 업데이트 제한
+                                    const now = Date.now();
+                                    if (now - lastUpdateTime > 50) {
+                                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                                        lastUpdateTime = now;
+                                    }
+                                } else if (data.type === 'tts') {
+                                    addToTTSQueue(data.content);
+                                } else if (data.type === 'tts_complete') {
+                                    console.log(`TTS 큐 완료: 총 ${data.total_items}개 문장`);
+                                } else if (data.type === 'done') {
+                                    clientState.isGenerating = false;
+                                    updateStatus('ready', '음성 녹음을 시작하려면 버튼을 클릭하세요');
+                                    
+                                    // ✅ chat.html과 동일한 최종 스크롤
+                                    setTimeout(() => {
+                                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                                    }, 10);
+                                    break;
+                                }
+                            } catch (e) {
+                                console.error('JSON 파싱 오류:', e);
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                console.error('AI 응답 오류:', error);
+                addMessage('AI 응답 중 오류가 발생했습니다.', 'error');
+                updateStatus('error', 'AI 응답 중 오류가 발생했습니다');
+                updateConnectionStatus(false); // ✅ chat.html과 동일한 연결 상태 업데이트
+            } finally {
+                clientState.isGenerating = false;
+                clientState.currentEventSource = null;
+                setGenerating(false); // ✅ chat.html과 동일한 로딩 해제
+            }
+        }
+
+        // 초기화
+        window.addEventListener('load', () => {
+            updateConnectionStatus(navigator.onLine);
+            initializeTTSState();
+            
+            navigator.mediaDevices.getUserMedia({ audio: true })
+                .then(async () => {
+                    permissionRequest.style.display = 'none';
+                    recordingControls.style.display = 'flex';
+                    updateStatus('ready', '음성 녹음을 시작하려면 버튼을 클릭하세요');
+                    
+                    await initializeAudioAnalysis();
+                    initializeSpeechRecognition();
+                })
+                .catch(() => {
+                    permissionRequest.style.display = 'block';
+                    recordingControls.style.display = 'none';
+                    updateStatus('error', '마이크 권한을 허용해주세요');
+                });
+        });
+
+        window.addEventListener('beforeunload', () => {
+            stopCurrentEventSource();
+            clearTTSQueue();
+            clearAllTimers();
+            
+            if (recognition && clientState.isRecording) {
+                recognition.stop();
+            }
+            
+            if (audioContext) {
+                audioContext.close();
+            }
+        });
+
+        document.addEventListener('visibilitychange', () => {
+            if (document.hidden && speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            } else if (!document.hidden && speechSynthesis.speaking) {
+                speechSynthesis.resume();
+            }
+        });
+    </script>
+</body>
+</html>

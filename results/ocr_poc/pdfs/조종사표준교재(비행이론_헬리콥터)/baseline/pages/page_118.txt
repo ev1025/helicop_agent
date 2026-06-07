@@ -1,0 +1,56 @@
+비행이론(헬리콥터)
+·111  
+최대 지속 출력(VH) 내에서의 수평비행 최대 속도
+에 대한 또 다른 제한은 출력의 가용성이다. G 생성 
+기동 또는 중량 증가에 기인한 요구 출력의 증가는 
+V
+H를 감소시킬 수 있다. 밀도고도의 증가 또는 문제
+가 있거나, 약한 엔진에 기인한 가용 출력의 감소 또
+한 VH를 감소시킨다.
+4.1.4 Blockage of the Pitot-Static System 
+동·정압 계통은 비행하고 있는 항공기 주위의 공
+기압력을 측정하여 고도, 속도, 상승/강하율을 지시
+해 주는 계기이므로, 공기압력이 정확히 측정되도록 
+피토 튜브와 정압공은 막힘이 없고 깨끗하게 유지되
+어야 한다. 그러기 위해서 조종사는 매 비행 후 피토 
+튜브 덮개를 덮어 놓아야 하며, 비행 전에 반드시 피
+토 튜브 덮개를 제거하고 정압공 주변이 깨끗하고 막
+힘이 없는지 확인하여야 한다. 비행 중 착빙(Icing)이 
+의심되면 반드시 피토 히터를 작동시켜 얼음에 의해 
+피토 튜브가 막히지 않도록 예방하여야 한다.
+어떤 원인에 의하여 정압공이 막힐 경우, 대체 정
+압(Alternate Static Air)을 작동시켜 조종석의 공
+기압을 대체 정압으로 사용할 수 있다. 여압이 되지 
+않는 항공기는 벤투리(Venturi) 효과로 인하여 조종
+석의 공기압이 항공기 바깥보다 낮게 된다. 대체 정
+압 장치가 없을 경우, 덜 중요한 승강계(VSI)의 유
+리를 깨서 조종석의 정압을 대체 정압으로 대신 이
+용할 수 있다.
+동·정압 계통이 착빙(Icing) 등의 원인으로 막혔을 
+경우, 공기압력이 제대로 전달되지 못하므로 속도계
+와, 고도계 및 승강계는 비정상적으로 지시한다. 
+다음의 표는 각각의 원인에 따른 증상을 나타낸다.
+[표 2-6] Pitot-Static System이 비정상일 때  
+속도계, 고도계, 승강계의 변화
+증상 Air speed Altimeter VSI
+Pitot tube(×)
+Zero Normal NormalDrain hole(O)
+Static port(O)
+Pitot tube(×) High in 
+Climb
+Low in 
+Descent
+Normal NormalDrain hole(×)
+Static port(O)
+Pitot tube(O) High in 
+Climb
+Low in 
+Descent
+Frozen FrozenDrain hole(O)
+Static port(×)
+Using alternate
+cockpit static air reads High reads High Momentarily
+show a climb
+Broken VSI glass reads High reads High Reverse
+[그림 2-83] Pitot system은 정상이고 Static system은 막혔을 때 
+속도계의 지시

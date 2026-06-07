@@ -1,0 +1,1034 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>RAG 채팅</title>
+    <style>
+        /* 기본 스타일 초기화 */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        /* 헤더 스타일 */
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        /* TTS 제어 스타일 */
+        .tts-controls {
+            position: absolute;
+            top: 50%;
+            right: 20px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.15);
+            padding: 8px 12px;
+            border-radius: 15px;
+            border: 1px solid rgba(255,255,255,0.2);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: nowrap;
+            font-size: 12px;
+            backdrop-filter: blur(10px);
+            box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+        }
+
+        .tts-toggle {
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: 1px solid rgba(255,255,255,0.3);
+            padding: 4px 8px;
+            border-radius: 12px;
+            cursor: pointer;
+            font-size: 11px;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tts-toggle:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-1px);
+        }
+
+        .tts-status {
+            padding: 3px 6px;
+            border-radius: 8px;
+            font-size: 10px;
+            font-weight: bold;
+            transition: all 0.3s;
+            white-space: nowrap;
+        }
+
+        .tts-enabled {
+            background-color: rgba(76, 175, 80, 0.8);
+            color: white;
+        }
+
+        .tts-disabled {
+            background-color: rgba(244, 67, 54, 0.8);
+            color: white;
+        }
+
+        .rate-control {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            color: white;
+            font-size: 11px;
+        }
+
+        .rate-control input[type="range"] {
+            width: 60px;
+            height: 3px;
+            background: rgba(255,255,255,0.3);
+            border-radius: 2px;
+            outline: none;
+            cursor: pointer;
+        }
+
+        .rate-control input[type="range"]::-webkit-slider-thumb {
+            width: 12px;
+            height: 12px;
+            background: white;
+            border-radius: 50%;
+            cursor: pointer;
+            -webkit-appearance: none;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.3);
+        }
+
+        .rate-value {
+            min-width: 20px;
+            text-align: center;
+            font-weight: bold;
+            font-size: 10px;
+        }
+
+        /* 뒤로가기 버튼 */
+        .back-button {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) translateX(-2px);
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0;
+            animation: messageAppear 0.3s ease-out forwards;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            margin-right: auto;
+        }
+
+        .message-info {
+            background: #e3f2fd !important;
+            color: #1976d2 !important;
+            font-style: italic;
+            border-left: 4px solid #2196f3;
+        }
+
+        .message-error {
+            background: #ffebee !important;
+            color: #c62828 !important;
+            border-left: 4px solid #f44336;
+        }
+
+        /* 문서 상세 정보 스타일 */
+        .doc-details {
+            background: #f0f8ff !important;
+            color: #2c5aa0 !important;
+            border-left: 4px solid #4CAF50;
+            font-family: 'Courier New', monospace;
+            font-size: 13px;
+            line-height: 1.6;
+            margin: 10px 0;
+            padding: 12px 16px;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+        }
+
+        .doc-details ul {
+            margin: 8px 0;
+            padding-left: 20px;
+        }
+
+        .doc-details li {
+            margin: 4px 0;
+            color: #1565c0;
+        }
+
+        .doc-info-icon {
+            display: inline-block;
+            width: 16px;
+            height: 16px;
+            background: #4CAF50;
+            border-radius: 50%;
+            color: white;
+            text-align: center;
+            line-height: 16px;
+            font-size: 10px;
+            margin-right: 6px;
+            font-weight: bold;
+        }
+
+        .chat-input-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+        }
+
+        .chat-input-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+
+        .chat-input {
+            flex: 1;
+            padding: 12px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            resize: none;
+            min-height: 20px;
+            max-height: 100px;
+        }
+
+        .chat-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .send-button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            white-space: nowrap;
+        }
+
+        .send-button:hover:not(:disabled) {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .send-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .send-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 20px;
+            font-style: italic;
+            color: #666;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .typing-dots {
+            display: inline-block;
+        }
+
+        .typing-dots::after {
+            content: '';
+            display: inline-block;
+            animation: typing 1.5s infinite;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                content: '';
+            }
+            20% {
+                content: '.';
+            }
+            40% {
+                content: '..';
+            }
+            60% {
+                content: '...';
+            }
+        }
+
+        .loading {
+            /* opacity: 0.7; */
+            pointer-events: none;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .connection-status.online {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .connection-status.offline {
+            background: #f44336;
+            color: white;
+        }
+
+        .tts-speaking {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            background: #4CAF50;
+            color: white;
+            padding: 8px 15px;
+            border-radius: 20px;
+            font-size: 12px;
+            display: none;
+            z-index: 1000;
+            animation: pulse 1.5s infinite;
+        }
+
+        @keyframes pulse {
+            0%, 100% { opacity: 1; }
+            50% { opacity: 0.7; }
+        }
+
+        /* 텍스트 서식 스타일 */
+        .message-content strong {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .message-content strong em {
+            font-style: italic;
+            color: #d32f2f;
+            background-color: rgba(211, 47, 47, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        .message-content .header-1 {
+            font-size: 1.2em;
+            font-weight: bold;
+            color: #2c3e50;
+            margin: 10px 0;
+        }
+
+        .message-content .header-2 {
+            font-size: 1.1em;
+            font-weight: bold;
+            color: #34495e;
+            margin: 8px 0;
+        }
+
+        .message-content .header-3 {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .message-content .header-4 {
+            font-weight: bold;
+            color: #1976d2;
+            margin: 5px 0;
+        }
+
+        /* 반응형 디자인 */
+        @media (max-width: 900px) {
+            .chat-container {
+                width: 95%;
+                height: 90vh;
+                border-radius: 15px;
+            }
+
+            .chat-header {
+                padding: 15px;
+                font-size: 20px;
+            }
+
+            .tts-controls {
+                right: 10px;
+                flex-direction: column;
+                gap: 6px;
+                padding: 6px 8px;
+            }
+
+            .rate-control {
+                gap: 4px;
+            }
+
+            .rate-control input[type="range"] {
+                width: 50px;
+            }
+
+            .back-button {
+                left: 10px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .message-content {
+                max-width: 85%;
+                padding: 10px 14px;
+            }
+
+            .chat-input {
+                font-size: 16px;
+            }
+
+            .tts-controls {
+                right: 5px;
+                padding: 4px 6px;
+                gap: 4px;
+            }
+
+            .tts-toggle {
+                padding: 3px 6px;
+                font-size: 10px;
+            }
+
+            .tts-status {
+                font-size: 9px;
+                padding: 2px 4px;
+            }
+
+            .rate-control {
+                font-size: 10px;
+            }
+
+            .rate-control input[type="range"] {
+                width: 40px;
+            }
+
+            .rate-value {
+                font-size: 9px;
+            }
+
+            .doc-details {
+                font-size: 12px;
+                padding: 10px 12px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <button class="back-button" onclick="window.location.href='/'">← 뒤로</button>
+            <span>RAG 채팅 시스템</span>
+            <div class="tts-controls">
+                <button class="tts-toggle" id="tts-toggle" onclick="toggleTTS()">🔊 TTS</button>
+                <span class="tts-status tts-enabled" id="tts-status">ON</span>
+                <div class="rate-control">
+                    <span>속도</span>
+                    <input type="range" id="tts-rate" min="0.5" max="2" step="0.1" value="1.3">
+                    <span class="rate-value" id="rate-value">1.3</span>
+                </div>
+            </div>
+        </div>
+        
+        <div class="connection-status online" id="connectionStatus">온라인</div>
+        <div class="tts-speaking" id="ttsSpeaking">🎵 음성 재생중...</div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">
+                    안녕하세요! 헬리콥터 조종사 표준교재에 관해 질문해보세요. 📚<br>
+                    🔊 TTS 기능이 활성화되어 답변을 음성으로 들을 수 있습니다.
+                </div>
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            봇이 답변을 생성중입니다<span class="typing-dots"></span>
+        </div>
+        
+        <div class="chat-input-container">
+            <form class="chat-input-form" id="chatForm">
+                <input type="text" class="chat-input" id="messageInput" 
+                       placeholder="메시지를 입력하세요..." required maxlength="1000">
+                <button type="submit" class="send-button" id="sendButton">
+                    <span id="sendButtonText">전송</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        // DOM 요소 참조
+        const chatMessages = document.getElementById('chatMessages');
+        const messageInput = document.getElementById('messageInput');
+        const sendButton = document.getElementById('sendButton');
+        const sendButtonText = document.getElementById('sendButtonText');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const chatForm = document.getElementById('chatForm');
+        const connectionStatus = document.getElementById('connectionStatus');
+        
+        // TTS 관련 요소
+        const ttsToggle = document.getElementById('tts-toggle');
+        const ttsStatus = document.getElementById('tts-status');
+        const ttsRate = document.getElementById('tts-rate');
+        const rateValue = document.getElementById('rate-value');
+        const ttsSpeaking = document.getElementById('ttsSpeaking');
+        
+        // 상태 변수
+        let ttsEnabled = true;
+        let speechSynthesis = window.speechSynthesis;
+        let currentUtterance = null;
+        let isGenerating = false;
+        let messageCounter = 0;
+        
+        // TTS 큐 관리 변수
+        let ttsQueue = [];
+        let isProcessingTTS = false;
+
+        // TTS 초기화 및 제어
+        function initializeTTSState() {
+            if (ttsEnabled) {
+                ttsToggle.innerHTML = '🔇 OFF';
+                ttsStatus.textContent = 'ON';
+                ttsStatus.className = 'tts-status tts-enabled';
+            }
+            const currentRate = ttsRate.value;
+            rateValue.textContent = currentRate;
+            console.log(`TTS 초기화: 활성화=${ttsEnabled}, 속도=${currentRate}`);
+        }
+
+        function checkTTSSupport() {
+            if ('speechSynthesis' in window) {
+                return true;
+            } else {
+                ttsStatus.textContent = '미지원';
+                ttsToggle.disabled = true;
+                return false;
+            }
+        }
+
+        function toggleTTS() {
+            if (!checkTTSSupport()) return;
+            
+            ttsEnabled = !ttsEnabled;
+            
+            if (ttsEnabled) {
+                ttsToggle.innerHTML = '🔇 OFF';
+                ttsStatus.textContent = 'ON';
+                ttsStatus.className = 'tts-status tts-enabled';
+            } else {
+                ttsToggle.innerHTML = '🔊 TTS';
+                ttsStatus.textContent = 'OFF';
+                ttsStatus.className = 'tts-status tts-disabled';
+                
+                speechSynthesis.cancel();
+                ttsSpeaking.style.display = 'none';
+                ttsQueue = [];
+                isProcessingTTS = false;
+            }
+        }
+
+        // 실시간 TTS 처리
+        function addToTTSQueue(text) {
+            if (!ttsEnabled || !text.trim()) return;
+            
+            const cleanText = text.trim()
+                .replace(/<[^>]*>/g, '')
+                .replace(/&[^;]+;/g, ' ')
+                .replace(/\*\*(.*?)\*\*/g, '$1')
+                .replace(/\*(.*?)\*/g, '$1')
+                .replace(/#{1,6}\s*([^#\n]+)/g, '$1')
+                .replace(/[📚📖🎤🔄🎯🗣️🤖💡✅❌🧠]/g, '')
+                .replace(/\[([^\]]+)\]/g, '$1')
+                .replace(/[*#@|~^{}\\`]/g, '')
+                .trim();
+            
+            if (!cleanText) return;
+            
+            ttsQueue.push(cleanText);
+            console.log(`TTS 큐 추가: "${cleanText.substring(0, 30)}..." (큐 크기: ${ttsQueue.length})`);
+            
+            if (!isProcessingTTS) {
+                processTTSQueue();
+            }
+        }
+
+        async function processTTSQueue() {
+            if (isProcessingTTS || ttsQueue.length === 0 || !ttsEnabled) return;
+            
+            isProcessingTTS = true;
+            
+            while (ttsQueue.length > 0 && ttsEnabled) {
+                const text = ttsQueue.shift();
+                
+                try {
+                    await speakTextAsync(text);
+                    console.log(`TTS 처리 완료: "${text.substring(0, 30)}..."`);
+                    await new Promise(resolve => setTimeout(resolve, 100));
+                } catch (error) {
+                    console.error('TTS 처리 오류:', error);
+                    continue;
+                }
+            }
+            
+            isProcessingTTS = false;
+            console.log('TTS 큐 처리 완료');
+        }
+
+        function speakTextAsync(text) {
+            return new Promise((resolve, reject) => {
+                if (!ttsEnabled || !text.trim()) {
+                    resolve();
+                    return;
+                }
+                
+                speechSynthesis.cancel();
+                
+                const utterance = new SpeechSynthesisUtterance(text);
+                utterance.lang = 'ko-KR';
+                utterance.rate = parseFloat(ttsRate.value);
+                utterance.pitch = 1.0;
+                utterance.volume = 0.8;
+                
+                // 한국어 음성 선택
+                const voices = speechSynthesis.getVoices();
+                const koreanVoice = voices.find(voice => 
+                    voice.lang.includes('ko') || 
+                    voice.name.includes('Korean') || 
+                    voice.name.includes('한국')
+                ) || voices.find(voice => voice.default);
+                
+                if (koreanVoice) {
+                    utterance.voice = koreanVoice;
+                }
+                
+                utterance.onstart = () => {
+                    ttsSpeaking.style.display = 'block';
+                    ttsSpeaking.textContent = '🎵 음성 재생중...';
+                };
+                
+                utterance.onend = () => {
+                    ttsSpeaking.style.display = 'none';
+                    resolve();
+                };
+                
+                utterance.onerror = (event) => {
+                    ttsSpeaking.style.display = 'none';
+                    console.error('TTS 오류:', event.error);
+                    reject(event.error);
+                };
+                
+                speechSynthesis.speak(utterance);
+                currentUtterance = utterance;
+            });
+        }
+
+        // TTS 속도 조절
+        ttsRate.addEventListener('input', function() {
+            rateValue.textContent = this.value;
+        });
+
+        // 연결 상태 관리
+        function updateConnectionStatus(online) {
+            if (online) {
+                connectionStatus.textContent = '온라인';
+                connectionStatus.className = 'connection-status online';
+            } else {
+                connectionStatus.textContent = '오프라인';
+                connectionStatus.className = 'connection-status offline';
+            }
+        }
+
+        window.addEventListener('online', () => updateConnectionStatus(true));
+        window.addEventListener('offline', () => updateConnectionStatus(false));
+
+        // 메시지 관리
+        function addMessage(content, type = 'user', streaming = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = `message-${++messageCounter}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            if (type === 'info') {
+                contentDiv.className += ' message-info';
+            } else if (type === 'error') {
+                contentDiv.className += ' message-error';
+            } else if (type === 'rag_info') {
+                contentDiv.className += ' message-info';
+                contentDiv.style.borderLeft = '4px solid #4CAF50';
+                contentDiv.style.backgroundColor = '#e8f5e8';
+            } else if (type === 'doc_details') {
+                contentDiv.className += ' doc-details';
+            }
+            
+            if (!streaming) {
+                const formattedContent = formatTextForHTML(content);
+                contentDiv.innerHTML = formattedContent;
+            }
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 10);
+            
+            return contentDiv;
+        }
+
+        function formatTextForHTML(text) {
+            let escaped = text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;');
+            
+            escaped = escaped
+                .replace(/\\n/g, '\n')
+                .replace(/\\r/g, '\r')
+                .replace(/\\t/g, '\t');
+            
+            escaped = escaped.replace(/^####\s*(.+)$/gm, '<br><span class="header-4">$1</span><br>');
+            escaped = escaped.replace(/^###\s*(.+)$/gm, '<span class="header-3">$1</span>');
+            escaped = escaped.replace(/^##\s*(.+)$/gm, '<br><span class="header-2">$1</span><br>');
+            escaped = escaped.replace(/^#\s*(.+)$/gm, '<br><span class="header-1">$1</span><br>');
+            
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            escaped = escaped.replace(/&quot;([^&]+?)&quot;/g, '<strong><em>$1</em></strong>');
+            escaped = escaped.replace(/\\([^\\]+)\\/g, '<strong><em>$1</em></strong>');
+            escaped = escaped.replace(/\[([^\]]+)\]/g, '<strong><em>$1</em></strong>');
+            
+            return escaped.replace(/\n/g, '<br>');
+        }
+
+        function formatDocumentInfo(documents) {
+            if (!documents || documents.length === 0) return '';
+            
+            let html = '<div style="margin: 8px 0;"><strong>📋 참고 문서 목록:</strong></div><ul>';
+            
+            documents.forEach((doc, index) => {
+                html += `<li><span class="doc-info-icon">${index + 1}</span>${doc}</li>`;
+            });
+            
+            html += '</ul>';
+            return html;
+        }
+
+        function showTyping() {
+            typingIndicator.style.display = 'block';
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 10);
+        }
+
+        function hideTyping() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function setGenerating(generating) {
+            isGenerating = generating;
+            sendButton.disabled = generating;
+            messageInput.disabled = generating;
+            
+            if (generating) {
+                sendButtonText.textContent = '전송중...';
+                document.body.classList.add('loading');
+                showTyping();
+                
+                // TTS 초기화
+                ttsQueue = [];
+                isProcessingTTS = false;
+            } else {
+                sendButtonText.textContent = '전송';
+                document.body.classList.remove('loading');
+                hideTyping();
+            }
+        }
+
+        // 메시지 전송 및 응답 처리
+        async function sendMessage(message) {
+            if (!message.trim() || isGenerating) return;
+
+            addMessage(message, 'user');
+            messageInput.value = '';
+            setGenerating(true);
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+                controller.abort();
+            }, 120000);
+            
+            try {
+                // CHANGES.md #013: agent_v2 LangGraph + GGUF 라우트로 전환.
+                // mode=multi (Supervisor + Workers + Critic) 기본, mode=single 도 가능.
+                const response = await fetch(`/chat/v2/stream?message=${encodeURIComponent(message)}&mode=multi`, {
+                    method: 'GET',
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                let botMessageDiv = null;
+                let botContent = '';
+                let lastUpdateTime = Date.now();
+                let buffer = '';
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        if (!botContent.trim()) {
+                            addMessage('응답을 받지 못했습니다. 다시 시도해주세요.', 'error');
+                        }
+                        break;
+                    }
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    buffer += chunk;
+                    
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+                    
+                    for (const line of lines) {
+                        if (line.startsWith('data: ') && line.length > 6) {
+                            try {
+                                const jsonStr = line.substring(6).trim();
+                                if (!jsonStr) continue;
+                                
+                                const data = JSON.parse(jsonStr);
+                                console.log('받은 데이터:', data);
+                                
+                                if (data.type === 'error') {
+                                    addMessage(data.content, 'error');
+                                    
+                                } else if (data.type === 'info') {
+                                    addMessage(data.content, 'info');
+                                    
+                                } else if (data.type === 'rag_info') {
+                                    addMessage(data.content, 'rag_info');
+                                    
+                                } else if (data.type === 'doc_details') {
+                                    const docDetailsDiv = addMessage('', 'doc_details', true);
+                                    docDetailsDiv.innerHTML = formatDocumentInfo(data.documents);
+                                    
+                                } else if (data.type === 'text') {
+                                    if (!botMessageDiv) {
+                                        botMessageDiv = addMessage('', 'bot', true);
+                                        botContent = '';
+                                    }
+                                    
+                                    botContent += data.content;
+                                    const formattedContent = formatTextForHTML(botContent);
+                                    botMessageDiv.innerHTML = formattedContent;
+                                    
+                                    const now = Date.now();
+                                    if (now - lastUpdateTime > 50) {
+                                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                                        lastUpdateTime = now;
+                                    }
+                                    
+                                } else if (data.type === 'tts') {
+                                    // 실시간 TTS 처리
+                                    addToTTSQueue(data.text || data.content);
+                                    
+                                } else if (data.type === 'tts_complete') {
+                                    console.log(`TTS 큐 완료: 총 ${data.total_items}개 문장`);
+                                    
+                                } else if (data.type === 'done') {
+                                    setTimeout(() => {
+                                        chatMessages.scrollTop = chatMessages.scrollHeight;
+                                    }, 10);
+                                    break;
+                                }
+                            } catch (e) {
+                                console.error('JSON 파싱 오류:', e, '라인:', line);
+                            }
+                        }
+                    }
+                }
+            } catch (error) {
+                clearTimeout(timeoutId);
+                if (error.name === 'AbortError') {
+                    addMessage('응답 시간이 초과되었습니다. 다시 시도해주세요.', 'error');
+                } else {
+                    console.error('전송 오류:', error);
+                    addMessage(`오류가 발생했습니다: ${error.message}`, 'error');
+                    updateConnectionStatus(false);
+                }
+            } finally {
+                setGenerating(false);
+            }
+        }
+
+        // 이벤트 리스너
+        chatForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const message = messageInput.value.trim();
+            if (message && !isGenerating) {
+                sendMessage(message);
+            }
+        });
+
+        messageInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter' && !e.shiftKey && !isGenerating) {
+                e.preventDefault();
+                const message = messageInput.value.trim();
+                if (message) {
+                    sendMessage(message);
+                }
+            }
+        });
+
+        messageInput.addEventListener('input', function() {
+            this.style.height = 'auto';
+            this.style.height = Math.min(this.scrollHeight, 100) + 'px';
+        });
+
+        // 초기화
+        window.addEventListener('load', () => {
+            messageInput.focus();
+            updateConnectionStatus(navigator.onLine);
+            checkTTSSupport();
+            initializeTTSState();
+        });
+
+        window.addEventListener('beforeunload', (e) => {
+            if (isGenerating) {
+                e.preventDefault();
+                e.returnValue = '응답을 생성 중입니다. 정말 페이지를 떠나시겠습니까?';
+                
+                if (speechSynthesis.speaking) {
+                    speechSynthesis.cancel();
+                }
+                ttsQueue = [];
+                isProcessingTTS = false;
+            }
+        });
+
+        document.addEventListener('visibilitychange', function() {
+            if (document.hidden && speechSynthesis.speaking) {
+                speechSynthesis.pause();
+            } else if (!document.hidden && speechSynthesis.speaking) {
+                speechSynthesis.resume();
+            }
+        });
+    </script>
+</body>
+</html>

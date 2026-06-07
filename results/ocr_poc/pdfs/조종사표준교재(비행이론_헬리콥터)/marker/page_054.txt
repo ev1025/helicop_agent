@@ -1,0 +1,15 @@
+Rotor 마스트에 장착되어 있고, 푸시로드(Pushrod)와 연결된 Cyclic과 Collective에 의해 조종된다. 이 판은 회전하지 않지만 Anti-drive Link에 의해 모든 방향으로 기울거나 위, 아래로 움직일 수 있다. 회전판(Rotating Swash Plate)은 Uniball Sleeve를 통해 고정판 위에 장착된다. Drive link를 통해 Main Rotor 마스트와 연결되어 일정하게 회전한다. 회전 판은 고정판과 함께 기울거나 위 아래로 움직일 수 있으며, 피치 링크(Pitch Link)를 거쳐 피치 혼(Pitch Horn)에 연결되어 있다.
+
+![](_page_0_Picture_3.jpeg)
+
+![](_page_0_Picture_5.jpeg)
+
+[그림 2-35] 회전 경사판 [그림 2-36] 회전 경사판(Swash Plate Assembly) 단면도
+
+![](_page_0_Picture_7.jpeg)
+
+[그림 2-37] Collective 작동으로 인한 고정 회전 경사판의 수직 이동량
+
+![](_page_0_Picture_9.jpeg)
+
+[그림 2-38] 사이클릭 레버 작동으로 인한 회전 경사판의 변화각

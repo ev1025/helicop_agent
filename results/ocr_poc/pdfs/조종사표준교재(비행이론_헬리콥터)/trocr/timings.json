@@ -1,0 +1,116 @@
+{
+  "model": "trocr",
+  "n_pages": 21,
+  "n_failed": 0,
+  "total_chars": 1282,
+  "total_seconds": 10.4,
+  "avg_seconds_per_page": 0.5,
+  "warmup_seconds": 0.48,
+  "timings": [
+    {
+      "page": 0,
+      "seconds": 0.45,
+      "chars": 54
+    },
+    {
+      "page": 1,
+      "seconds": 0.72,
+      "chars": 91
+    },
+    {
+      "page": 2,
+      "seconds": 0.71,
+      "chars": 81
+    },
+    {
+      "page": 3,
+      "seconds": 0.31,
+      "chars": 27
+    },
+    {
+      "page": 27,
+      "seconds": 0.69,
+      "chars": 91
+    },
+    {
+      "page": 28,
+      "seconds": 0.45,
+      "chars": 58
+    },
+    {
+      "page": 44,
+      "seconds": 0.67,
+      "chars": 107
+    },
+    {
+      "page": 54,
+      "seconds": 0.32,
+      "chars": 36
+    },
+    {
+      "page": 76,
+      "seconds": 0.44,
+      "chars": 50
+    },
+    {
+      "page": 109,
+      "seconds": 0.73,
+      "chars": 119
+    },
+    {
+      "page": 123,
+      "seconds": 0.7,
+      "chars": 69
+    },
+    {
+      "page": 131,
+      "seconds": 0.66,
+      "chars": 91
+    },
+    {
+      "page": 140,
+      "seconds": 0.19,
+      "chars": 11
+    },
+    {
+      "page": 155,
+      "seconds": 0.35,
+      "chars": 43
+    },
+    {
+      "page": 172,
+      "seconds": 0.18,
+      "chars": 4
+    },
+    {
+      "page": 188,
+      "seconds": 0.67,
+      "chars": 108
+    },
+    {
+      "page": 189,
+      "seconds": 0.72,
+      "chars": 91
+    },
+    {
+      "page": 190,
+      "seconds": 0.35,
+      "chars": 42
+    },
+    {
+      "page": 226,
+      "seconds": 0.21,
+      "chars": 12
+    },
+    {
+      "page": 227,
+      "seconds": 0.69,
+      "chars": 91
+    },
+    {
+      "page": 228,
+      "seconds": 0.19,
+      "chars": 6
+    }
+  ]
+}

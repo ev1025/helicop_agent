@@ -1,0 +1,21 @@
+22·
+헬리콥터에는 Collective, Cyclic, Anti-Torque 
+Pedal 및 Throttle이 있다. 본 교재의 모든 예제
+는 Main Rotor Blade가 반시계 방향으로 회전하는 
+Single Rotor 타입 헬리콥터를 기준으로 설명한다. 
+1.1 Collective(Collective Pitch Control)
+Collective는 조종사 좌석 왼쪽에 위치해 있으
+며, 왼손으로 조작한다. Collective는 Main Rotor 
+Blade의 피치각을 동시에 변화시킨다. Collective를 
+위로 올리면 모든 Main Rotor Blade의 피치각이 동
+시에 증가하고, 아래로 내리면 피치각이 동시에 감
+소한다. 이것은 기계적인 연결 장치로, Collective의 
+움직임에 따라 Blade 피치각이 변화한다.
+Collective 잠금장치(Friction)는 조종사가 의도하지 
+않은 Collective의 움직임을 막아주는 역할을 한다.
+Collective를 위로 올리거나 아래로 내리면 각 
+Blade의 붙임각(Angle of Incidence)에 변화가 생
+긴다. 붙임각이 변화하면 항력이 변하고, Main 
+조종 계통
+Controlling Flight1장
+[그림 2-1] Collective 조종

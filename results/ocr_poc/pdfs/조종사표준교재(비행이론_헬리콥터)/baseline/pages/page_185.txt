@@ -1,0 +1,40 @@
+기초 비행 원리
+178·
+Tandem Rotor 헬리콥터의 롤 조종(Roll Control)
+Tandem Rotor 헬리콥터의 롤 조종(가로 방향 조
+종)은 세로축에 대한 동체의 롤 변화를 발생시키는 
+전방 및 후방 Main Rotor 디스크의 가로 방향 기울
+어짐에 의해 조종되며, 이로 인해 동체가 세로축을 
+중심으로 롤링한다.
+[그림 3-67]과 같이 Cyclic을 왼쪽으로 밀면 전방 
+및 후방 Main Rotor 디스크가 왼쪽으로 동일하게 
+기울어진다. 반대로 Cyclic을 오른쪽으로 사이클릭
+을 밀면 전방 및 후방 Main Rotor 디스크가 오른쪽
+으로 동일하게 기울어진다.
+Tandem Rotor 헬리콥터의 방향 조종(Yaw Control)
+Tandem Rotor 헬리콥터의 방향 조종은 수직축을 
+중심으로 회전하는 전방 및 후방 Main Rotor 디스
+크의 가로 방향 기울기에 의해 수행된다.
+[그림 3-68]과 같이 좌측 Pedal에 압을 주면 전방 
+Main Rotor 디스크는 좌측으로, 후방 Main Rotor 
+디스크는 우측으로 기울어진다. 반대로 우측 Pedal
+에 압을 주면 전방 Main Rotor 디스크는 우측으로, 
+후방 Main Rotor 디스크는 좌측으로 기울어진다. 
+  Tandem Rotor 헬리콥터의 정상 선회
+(Coordinated Turn)
+Tandem Rotor 헬리콥터의 정상선회 또한 요잉
+(Yawing)의 제어로 구심력과 원심력의 균형을 유지
+하는 것이 핵심이다. 대표적인 Tandem Rotor 헬리
+콥터인 CH-47 치누크가 좌측으로 선회를 한다고 
+가정해보자.
+좌측으로 선회하던 도중 슬립(Slip) 현상이 발생하
+여 선회방향과 같은 방향으로 Pedal을 차주게 되는 
+경우, [그림 3-69]과 같이 전방 Main Rotor만이 기
+울어져 요잉을 제어하게 된다. 
+반면 스키드(Skid) 현상이 발생하여 선회방향과 
+반대 방향으로 Pedal을 차주게 되는 경우, [그림 
+3-70]와 같이 후방 Main Rotor만이 기울어져 요잉
+을 제어하여 구심력과 원심력의 균형을 유지한다. 
+[그림 3-67] Tandem Rotor 헬리콥터의 Roll Control
+[그림 3-68] Tandem Rotor 헬리콥터의 Yaw Control
+ [그림 3-69] Tandem Rotor 헬리콥터의 좌선회시 슬립(Slip) 수정

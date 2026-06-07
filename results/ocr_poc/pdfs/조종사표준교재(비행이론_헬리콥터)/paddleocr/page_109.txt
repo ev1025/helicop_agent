@@ -1,0 +1,95 @@
+4장
+비행계기
+정압
+계기
+용하고
+속도계는
+41
+동
+피토
+튜브Pitot
+Tube에서
+:
+측정
+Pitot-
+--static
+System
+된공기의
+전압동압+
+정압과
+정압공에서
+측정된정
+Instruments
+압을이용하여
+측정된다
+동정압
+계기는
+항공기
+주위에
+흐르는
+공기의압
+력Dynamic
+Pressure
+Static
+Pressure을
+측정하
+411기압
+고도계Sensitive
+Altimeter
+여
+압력의
+크기와
+변화를
+나타내
+주는
+계기로
+고도
+계
+속도계
+승강계
+등이
+있다
+고도계와
+승강계는
+기압
+고도계Sensitive
+Altimeter는
+비행하고
+정압공Static
+Port에서
+측정된
+공기의
+정압을
+이
+있는
+항공기
+주위의
+정압Static
+Pressure을
+즉
+Airspeed
+indicator
+Vertical
+AS
+I speed indicator
+NsI
+Altimeter
+Pressure chamber
+Static port
+Static chamber
+Baffle
+plate
+Pitot
+tube
+Drain hole
+Ram air
+Static hole
+Heater
+35
+watts
+Heater 1oo
+Watts
+Switch
+[그림2-71]동
+정압계기
+102

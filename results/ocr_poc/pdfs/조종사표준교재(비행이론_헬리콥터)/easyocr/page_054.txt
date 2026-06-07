@@ -1,0 +1,13 @@
+비행이론(헬리롭터)
+Rotor 마스트에 장차되어 있고,  푸시로드(Push- rod)와 연결본 Cyclic과 Collective에l 의해 조종되다. 이 판은 회전하지 않지만 Anti-drive Link에 의해 모든 방향으로 기울거나 위, 아래로 움직일 수 있다. 회전판(Rotating Swash Plate)은 Uniball Sleeve틀
+통해 고정판 위에 장작되다. Drive link틀 통해 Main Rotor 마스트와 연결되어 일정하게 회전한다. 회전 판은 고정판과 함께 기울거나 위 아래로 움직일 수 있으머 피치 굉크(Pitch Link)틀 거처 피치 혼(Pitch Horn에l 연결되어 있다
+Pitchlink
+Stationary slash plate
+Drive Iink
+Ratatlng swash plate
+Cantr미l rod
+[그림 2-35] 회전 경사판
+[그림 2-36] 회전 경사판Swash Plate Assembly) 단면도
+[그림 2-37] Collective 작동으로 인한 고정 회전 경사판의 수직 이동량
+[그림 2-38] 사이클렉 레버 작동으로 인한 회전 경사판의 변화각
+47

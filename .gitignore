@@ -1,0 +1,61 @@
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+*.egg-info/
+dist/
+build/
+
+# Virtual Environment
+venv/
+env/
+ENV/
+.venv/
+
+# Secrets / local env
+.env
+.env.local
+
+# IDE
+.idea/
+.vscode/
+.claude/
+*.swp
+*.swo
+*~
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Logs
+*.log
+
+# Jupyter
+.ipynb_checkpoints/
+
+# Cache
+.pytest_cache/
+.mypy_cache/
+.tox/
+
+# Project specific
+chroma_db*/
+*.bak
+_backup/
+chroma_db_new/chroma.sqlite3
+test_db/
+*.safetensors
+*.pt
+*.bin
+
+# SSL certs / private keys (never commit)
+ssl_certificates.disabled/
+*.key
+*.crt
+*.csr
+*.pem
+*.p12
+*.pfx

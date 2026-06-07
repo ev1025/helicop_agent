@@ -1,0 +1,115 @@
+{
+  "model": "marker",
+  "n_pages": 21,
+  "n_failed": 3,
+  "total_chars": 7762,
+  "total_seconds": 133.19,
+  "avg_seconds_per_page": 6.34,
+  "timings": [
+    {
+      "page": 0,
+      "seconds": 9.79,
+      "chars": 180
+    },
+    {
+      "page": 1,
+      "seconds": 7.55,
+      "chars": 0
+    },
+    {
+      "page": 2,
+      "seconds": 4.99,
+      "chars": 147
+    },
+    {
+      "page": 3,
+      "seconds": 5.29,
+      "chars": 748
+    },
+    {
+      "page": 27,
+      "seconds": 7.22,
+      "chars": 0
+    },
+    {
+      "page": 28,
+      "seconds": 8.05,
+      "chars": 543
+    },
+    {
+      "page": 44,
+      "seconds": 5.02,
+      "chars": 211
+    },
+    {
+      "page": 54,
+      "seconds": 5.27,
+      "chars": 586
+    },
+    {
+      "page": 76,
+      "seconds": 5.8,
+      "chars": 1385
+    },
+    {
+      "page": 109,
+      "seconds": 5.6,
+      "chars": 473
+    },
+    {
+      "page": 123,
+      "seconds": 5.52,
+      "chars": 340
+    },
+    {
+      "page": 131,
+      "seconds": 7.74,
+      "chars": 0
+    },
+    {
+      "page": 140,
+      "seconds": 5.52,
+      "chars": 344
+    },
+    {
+      "page": 155,
+      "seconds": 5.89,
+      "chars": 1409
+    },
+    {
+      "page": 172,
+      "seconds": 5.41,
+      "chars": 346
+    },
+    {
+      "page": 188,
+      "seconds": 5.27,
+      "chars": 239
+    },
+    {
+      "page": 189,
+      "seconds": 7.76,
+      "chars": 0
+    },
+    {
+      "page": 190,
+      "seconds": 5.91,
+      "chars": 358
+    },
+    {
+      "page": 226,
+      "seconds": 5.99,
+      "chars": 397
+    },
+    {
+      "page": 227,
+      "seconds": 7.77,
+      "chars": 0
+    },
+    {
+      "page": 228,
+      "seconds": 5.83,
+      "chars": 56
+    }
+  ]
+}

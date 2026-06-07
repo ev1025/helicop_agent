@@ -1,0 +1,197 @@
+# =============================================================================
+# AutoRAG 본 평가 config — 운영 서버 (Linux + vLLM)
+# =============================================================================
+# 사용법:
+#   bash autorag/run_server_multi.sh    ← 모델 리스트를 직렬로 자동 평가
+#
+# 이 config 의 generator.model 은 wrapper 가 매 모델마다 sed 로 교체.
+# generator 노드는 단일 LlamaIndexLLM(openailike) 모듈만 둠 (vLLM endpoint 8000 가정).
+#
+# 메트릭 개편:
+#   - retrieval/reranker: f1, recall, precision, ndcg, mrr, map (map 추가)
+#   - generation: sem_score, g_eval, bert_score, deepeval_faithfulness 추가
+#                 bleu/rouge 는 보조로만
+#
+# 효율 최적화:
+#   - reranker top_k 10 (기존 5 → 정밀도 ↑)
+#   - passage_filter 추가: similarity_threshold_cutoff 로 노이즈 컷 → LLM 컨텍스트 ↓
+#   - hybrid_rrf weight_range 확장 [[2, 100]]
+#   - hybrid_cc normalize: mm/tmm/zscore + test_weight_size 21
+# =============================================================================
+
+vectordb:
+  - name: chroma_arctic_ko
+    db_type: chroma
+    client_type: persistent
+    collection_name: heli_arctic_ko_server
+    path: ./autorag_chroma_arctic_ko_server
+    embedding_model:
+      - type: huggingface
+        model_name: dragonkue/snowflake-arctic-embed-l-v2.0-ko
+    embedding_batch: 64
+    similarity_metric: cosine
+  - name: chroma_bge_m3
+    db_type: chroma
+    client_type: persistent
+    collection_name: heli_bge_m3_server
+    path: ./autorag_chroma_bge_m3_server
+    embedding_model:
+      - type: huggingface
+        model_name: BAAI/bge-m3
+    embedding_batch: 32
+    similarity_metric: cosine
+
+node_lines:
+  # -------------------------------------------------------------------------
+  # 1) Retrieval — BM25 + Vector × 2 + Hybrid 다각화
+  # -------------------------------------------------------------------------
+  - node_line_name: retrieve_line
+    nodes:
+      - node_type: lexical_retrieval
+        top_k: 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: bm25
+            bm25_tokenizer: ko_kiwi
+
+      - node_type: semantic_retrieval
+        top_k: 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: vectordb
+            vectordb: chroma_arctic_ko
+          - module_type: vectordb
+            vectordb: chroma_bge_m3
+
+      - node_type: hybrid_retrieval
+        top_k: 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: hybrid_rrf
+            weight_range: [[2, 100]]                    # 확장된 weight sweep
+          - module_type: hybrid_cc
+            normalize_method: [mm, tmm, zscore]         # zscore 추가
+            weight_range: [[0.0, 1.0]]
+            test_weight_size: 21                        # 폭발 방지 (≤21)
+
+      # -------------------------------------------------------------------------
+      # 2) Reranker — BGE 계열 유지, top_k 10 으로 통제 (속도/정밀도 균형)
+      # -------------------------------------------------------------------------
+      - node_type: passage_reranker
+        top_k: 10                                       # 5 → 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: pass_reranker
+          - module_type: koreranker
+          - module_type: flag_embedding_reranker
+            model_name: BAAI/bge-reranker-v2-m3
+          - module_type: flag_embedding_reranker
+            model_name: dragonkue/bge-reranker-v2-m3-ko
+          - module_type: sentence_transformer_reranker
+            model_name: bongsoo/kpf-cross-encoder-v1
+
+      # -------------------------------------------------------------------------
+      # 3) Passage Filter — 노이즈 컷 (LLM 컨텍스트/Latency 최적화)
+      # -------------------------------------------------------------------------
+      - node_type: passage_filter
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: pass_passage_filter
+          - module_type: similarity_threshold_cutoff
+            threshold: 0.5
+          - module_type: similarity_percentile_cutoff
+            percentile: 0.6
+
+      # -------------------------------------------------------------------------
+      # 4) Compressor — pass 만 (절차서 토큰 보존, tree_summarize 는 latency↑)
+      # -------------------------------------------------------------------------
+      - node_type: passage_compressor
+        strategy:
+          metrics: [retrieval_token_f1, retrieval_token_recall, retrieval_token_precision]
+        modules:
+          - module_type: pass_compressor
+
+  # -------------------------------------------------------------------------
+  # 5) Prompt — 환각 억제 강화 (매뉴얼 인용 강제)
+  # -------------------------------------------------------------------------
+  - node_line_name: prompt_line
+    nodes:
+      - node_type: prompt_maker
+        strategy:
+          metrics:
+            - metric_name: bleu
+            - metric_name: rouge
+            - metric_name: sem_score
+              embedding_model: huggingface_baai_bge_m3
+        modules:
+          - module_type: fstring
+            prompt:
+              - |
+                [지시사항]
+                당신은 헬기 정비 매뉴얼만을 근거로 답하는 정비 보조 AI 입니다.
+                반드시 아래 [참조 문서] 안의 내용에만 근거하여 한국어로 답변하세요.
+                참조 문서에 없는 사실은 절대 추측하지 말고 '매뉴얼에서 확인 불가'라고 답하세요.
+                답변은 다음 규칙을 지킵니다.
+                - 절차 번호는 원문 그대로 보존
+                - 인용 페이지를 [출처: p.NN] 으로 명시
+                - 간결하게, 불필요한 미사여구 없이
+
+                [참조 문서]
+                {retrieved_contents}
+
+                [질문]
+                {query}
+
+                [답변]
+
+  # -------------------------------------------------------------------------
+  # 6) Generator — vLLM (OpenAI 호환). model 은 wrapper 가 sed 로 교체
+  # -------------------------------------------------------------------------
+  - node_line_name: generate_line
+    nodes:
+      - node_type: generator
+        strategy:
+          metrics:
+            - metric_name: bleu
+            - metric_name: rouge
+            - metric_name: sem_score
+              embedding_model: huggingface_baai_bge_m3
+            - metric_name: bert_score
+              lang: ko
+            - metric_name: g_eval
+              metrics: [Coherence, Consistency, Fluency, Relevance]
+              generator_module_type: llama_index_llm
+              llm: openailike
+              model: __MODEL_PLACEHOLDER__
+              api_base: http://127.0.0.1:8000/v1
+              api_key: EMPTY
+              is_chat_model: true
+              context_window: 8192
+              max_tokens: 512
+              temperature: 0.0
+            - metric_name: deepeval_faithfulness
+              generator_module_type: llama_index_llm
+              llm: openailike
+              model: __MODEL_PLACEHOLDER__
+              api_base: http://127.0.0.1:8000/v1
+              api_key: EMPTY
+              is_chat_model: true
+              context_window: 8192
+              max_tokens: 512
+              temperature: 0.0
+              lang: ko
+        modules:
+          - module_type: LlamaIndexLLM
+            llm: openailike
+            model: __MODEL_PLACEHOLDER__               # wrapper 가 sed 로 교체
+            api_base: http://127.0.0.1:8000/v1
+            api_key: EMPTY
+            is_chat_model: true
+            context_window: 8192
+            max_tokens: 768
+            temperature: 0.1

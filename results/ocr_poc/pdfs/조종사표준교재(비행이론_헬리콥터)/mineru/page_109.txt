@@ -1,0 +1,14 @@
+![](C:\Users\eg287\OneDrive\바탕 화면\project\수리온\team_gitlab\results\ocr_poc\mineru\_images/6f6c446fc94c3f1f0012393cc43aaf66da6074ad3ac7bcf7fc3930ac9b6ca9f0.jpg)
+
+# 비행계기
+
+# 4.1 ‌동·정압 계기 (Pitot-static System Instruments)
+
+동·정압 계기는 항공기 주위에 흐르는 공기의 압력(Dynamic Pressure, Static Pressure)을 측정하여 압력의 크기와 변화를 나타내 주는 계기로 고도계, 속도계, 승강계 등이 있다. 고도계와 승강계는정압공(Static Port)에서 측정된 공기의 정압을 이용하고, 속도계는 피토 튜브(Pitot Tube)에서 측정된 공기의 전압(동압+정압)과 정압공에서 측정된 정압을 이용하여 측정된다.
+
+# 4.1.1 기압 고도계(Sensitive Altimeter)
+
+기압 고도계(Sensitive Altimeter)는 비행하고있는 항공기 주위의 정압(Static Pressure)을 측
+
+![](C:\Users\eg287\OneDrive\바탕 화면\project\수리온\team_gitlab\results\ocr_poc\mineru\_images/b8bd734f443b2b2b0182e09cd7bc08b0631339712919ab446d9469192de53e18.jpg)  
+[그림 2-71] 동 정압 계기

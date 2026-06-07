@@ -1,0 +1,116 @@
+{
+  "model": "surya",
+  "n_pages": 21,
+  "n_failed": 0,
+  "total_chars": 8837,
+  "total_seconds": 212.42,
+  "avg_seconds_per_page": 10.12,
+  "warmup_seconds": 10.58,
+  "timings": [
+    {
+      "page": 0,
+      "seconds": 10.31,
+      "chars": 143
+    },
+    {
+      "page": 1,
+      "seconds": 2.15,
+      "chars": 0
+    },
+    {
+      "page": 2,
+      "seconds": 9.65,
+      "chars": 107
+    },
+    {
+      "page": 3,
+      "seconds": 14.81,
+      "chars": 736
+    },
+    {
+      "page": 27,
+      "seconds": 2.09,
+      "chars": 0
+    },
+    {
+      "page": 28,
+      "seconds": 16.95,
+      "chars": 437
+    },
+    {
+      "page": 44,
+      "seconds": 8.12,
+      "chars": 290
+    },
+    {
+      "page": 54,
+      "seconds": 12.96,
+      "chars": 585
+    },
+    {
+      "page": 76,
+      "seconds": 21.78,
+      "chars": 1465
+    },
+    {
+      "page": 109,
+      "seconds": 13.66,
+      "chars": 687
+    },
+    {
+      "page": 123,
+      "seconds": 13.07,
+      "chars": 587
+    },
+    {
+      "page": 131,
+      "seconds": 2.13,
+      "chars": 0
+    },
+    {
+      "page": 140,
+      "seconds": 7.85,
+      "chars": 356
+    },
+    {
+      "page": 155,
+      "seconds": 20.99,
+      "chars": 1401
+    },
+    {
+      "page": 172,
+      "seconds": 15.63,
+      "chars": 853
+    },
+    {
+      "page": 188,
+      "seconds": 9.19,
+      "chars": 405
+    },
+    {
+      "page": 189,
+      "seconds": 2.18,
+      "chars": 0
+    },
+    {
+      "page": 190,
+      "seconds": 10.83,
+      "chars": 278
+    },
+    {
+      "page": 226,
+      "seconds": 10.69,
+      "chars": 425
+    },
+    {
+      "page": 227,
+      "seconds": 2.09,
+      "chars": 0
+    },
+    {
+      "page": 228,
+      "seconds": 5.29,
+      "chars": 82
+    }
+  ]
+}

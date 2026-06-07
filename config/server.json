@@ -1,0 +1,8 @@
+{
+  "host": "0.0.0.0",
+  "port": 8000,
+  "static_dir": "static",
+  "templates_dir": "app/templates",
+  "ssl_keyfile": "ssl_certificates/server.key",
+  "ssl_certfile": "ssl_certificates/server.crt"
+}

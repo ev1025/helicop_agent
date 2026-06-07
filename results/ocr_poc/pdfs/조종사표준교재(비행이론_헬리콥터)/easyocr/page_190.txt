@@ -1,0 +1,5 @@
+비행이론(헬리롭터) Flight Theory
+4편: 항공기 성능
+1장 헬리롭터 무게중심과 균형 1.1 중량 1.2 평령 1.3 중량과 평형 계산 1.4 헬리롭터 외부 슬림 운용
+3장 Blade 트래굉과 진동분석 3.1 개요General) 3.2 Main Rotor 및 Tail Rotor 트래량 (Main & Tail Rotor Tracking) 3.3 정적 & 동적 균형 (Static & Dynamic Balancing)
+2장 헬리롭터 성능 2.1 성능에 영향울 주는 요소들 2.2 성능 차트

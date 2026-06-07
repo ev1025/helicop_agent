@@ -1,0 +1,706 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>음성 파일 AI 채팅</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .chat-container {
+            width: 90%;
+            max-width: 800px;
+            height: 80vh;
+            background: white;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+        }
+
+        .chat-header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 20px;
+            text-align: center;
+            font-size: 24px;
+            font-weight: bold;
+            position: relative;
+        }
+
+        .chat-messages {
+            flex: 1;
+            overflow-y: auto;
+            padding: 20px;
+            background: #f8f9fa;
+            scroll-behavior: smooth;
+        }
+
+        .message {
+            margin-bottom: 15px;
+            display: flex;
+            align-items: flex-start;
+            opacity: 0;
+            animation: messageAppear 0.3s ease-out forwards;
+        }
+
+        @keyframes messageAppear {
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .message.user {
+            justify-content: flex-end;
+        }
+
+        .message.bot {
+            justify-content: flex-start;
+        }
+
+        .message-content {
+            max-width: 70%;
+            padding: 12px 18px;
+            border-radius: 18px;
+            word-wrap: break-word;
+            line-height: 1.6;
+            white-space: pre-wrap;
+        }
+
+        .message.user .message-content {
+            background: #667eea;
+            color: white;
+            margin-left: auto;
+        }
+
+        .message.bot .message-content {
+            background: white;
+            color: #333;
+            border: 1px solid #e0e0e0;
+            margin-right: auto;
+        }
+
+        .message-info {
+            background: #e3f2fd !important;
+            color: #1976d2 !important;
+            font-style: italic;
+            border-left: 4px solid #2196f3;
+        }
+
+        .message-error {
+            background: #ffebee !important;
+            color: #c62828 !important;
+            border-left: 4px solid #f44336;
+        }
+
+        .file-upload-container {
+            padding: 20px;
+            background: white;
+            border-top: 1px solid #e0e0e0;
+            transition: background-color 0.3s;
+        }
+
+        .file-upload-form {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+
+        .file-input-wrapper {
+            flex: 1;
+            min-width: 200px;
+        }
+
+        .file-input {
+            width: 100%;
+            padding: 12px 18px;
+            border: 2px solid #e0e0e0;
+            border-radius: 25px;
+            font-size: 16px;
+            outline: none;
+            transition: border-color 0.3s, box-shadow 0.3s;
+            background: white;
+        }
+
+        .file-input:focus {
+            border-color: #667eea;
+            box-shadow: 0 0 0 3px rgba(102, 126, 234, 0.1);
+        }
+
+        .upload-button {
+            padding: 12px 24px;
+            background: #667eea;
+            color: white;
+            border: none;
+            border-radius: 25px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.1s;
+            white-space: nowrap;
+        }
+
+        .upload-button:hover:not(:disabled) {
+            background: #5a6fd8;
+            transform: translateY(-1px);
+        }
+
+        .upload-button:active:not(:disabled) {
+            transform: translateY(0);
+        }
+
+        .upload-button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+            transform: none;
+        }
+
+        .typing-indicator {
+            display: none;
+            padding: 10px 20px;
+            font-style: italic;
+            color: #666;
+            background: rgba(102, 126, 234, 0.1);
+            border-radius: 10px;
+            margin: 0 20px;
+            text-align: center;
+        }
+
+        .typing-dots {
+            display: inline-block;
+        }
+
+        .typing-dots::after {
+            content: '';
+            display: inline-block;
+            animation: typing 1.5s infinite;
+        }
+
+        @keyframes typing {
+            0%, 60%, 100% {
+                content: '';
+            }
+            20% {
+                content: '.';
+            }
+            40% {
+                content: '..';
+            }
+            60% {
+                content: '...';
+            }
+        }
+
+        .back-button {
+            position: absolute;
+            top: 50%;
+            left: 20px;
+            transform: translateY(-50%);
+            background: rgba(255,255,255,0.2);
+            color: white;
+            border: none;
+            padding: 8px 16px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background 0.3s, transform 0.1s;
+        }
+
+        .back-button:hover {
+            background: rgba(255,255,255,0.3);
+            transform: translateY(-50%) translateX(-2px);
+        }
+
+        .loading {
+            opacity: 0.7;
+            pointer-events: none;
+        }
+
+        .connection-status {
+            position: fixed;
+            top: 10px;
+            right: 10px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 12px;
+            font-weight: bold;
+            transition: all 0.3s;
+            z-index: 1000;
+        }
+
+        .connection-status.online {
+            background: #4CAF50;
+            color: white;
+        }
+
+        .connection-status.offline {
+            background: #f44336;
+            color: white;
+        }
+
+        /* Bold 및 기울기 스타일 */
+        .message-content strong {
+            font-weight: bold;
+            color: #1976d2;
+        }
+
+        .message-content strong em {
+            font-style: italic;
+            color: #d32f2f;
+            background-color: rgba(211, 47, 47, 0.1);
+            padding: 1px 4px;
+            border-radius: 3px;
+        }
+
+        /* 드래그 앤 드롭 스타일 */
+        .file-upload-container.drag-over {
+            background-color: #f0f0f0;
+            border: 2px dashed #667eea;
+        }
+
+        @media (max-width: 600px) {
+            .chat-container {
+                width: 95%;
+                height: 90vh;
+                border-radius: 15px;
+            }
+            
+            .message-content {
+                max-width: 85%;
+                padding: 10px 14px;
+            }
+
+            .chat-header {
+                padding: 15px;
+                font-size: 20px;
+            }
+
+            .back-button {
+                left: 10px;
+                padding: 6px 12px;
+                font-size: 12px;
+            }
+
+            .file-upload-form {
+                flex-direction: column;
+            }
+
+            .file-input-wrapper {
+                min-width: 100%;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="chat-container">
+        <div class="chat-header">
+            <button class="back-button" onclick="window.location.href='/'">← 뒤로</button>
+            음성 파일 AI 채팅
+        </div>
+        
+        <div class="connection-status online" id="connectionStatus">온라인</div>
+        
+        <div class="chat-messages" id="chatMessages">
+            <div class="message bot">
+                <div class="message-content">
+                    안녕하세요! 음성 파일을 업로드하면 AI가 분석하여 답변해드립니다. 🎵
+                    <br><br>
+                    <strong>지원 형식:</strong> MP3, WAV, M4A, OGG 등<br>
+                    <strong>최대 크기:</strong> 25MB<br>
+                    <strong>권장 길이:</strong> 5분 이내
+                </div>
+            </div>
+        </div>
+        
+        <div class="typing-indicator" id="typingIndicator">
+            AI가 음성을 분석하고 답변을 생성중입니다<span class="typing-dots"></span>
+        </div>
+        
+        <div class="file-upload-container" id="uploadContainer">
+            <form class="file-upload-form" id="uploadForm" enctype="multipart/form-data">
+                <div class="file-input-wrapper">
+                    <input type="file" class="file-input" id="fileInput" name="file" 
+                           accept="audio/*" required>
+                </div>
+                <button type="submit" class="upload-button" id="uploadButton">
+                    <span id="uploadButtonText">업로드 & 분석</span>
+                </button>
+            </form>
+        </div>
+    </div>
+
+    <script>
+        const chatMessages = document.getElementById('chatMessages');
+        const uploadForm = document.getElementById('uploadForm');
+        const fileInput = document.getElementById('fileInput');
+        const uploadButton = document.getElementById('uploadButton');
+        const uploadButtonText = document.getElementById('uploadButtonText');
+        const typingIndicator = document.getElementById('typingIndicator');
+        const connectionStatus = document.getElementById('connectionStatus');
+        const uploadContainer = document.getElementById('uploadContainer');
+
+        let isProcessing = false;
+        let messageCounter = 0;
+
+        function formatTextForHTML(text) {
+            // 1. HTML 특수문자 이스케이프 (XSS 방지)
+            let escaped = text
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;')
+                .replace(/"/g, '&quot;')
+                .replace(/'/g, '&#x27;');
+            
+            // 2. 이스케이프된 줄바꿈 문자들을 실제 줄바꿈으로 변환
+            escaped = escaped
+                .replace(/\\n/g, '\n')    // \n을 실제 줄바꿈으로
+                .replace(/\\r/g, '\r')    // \r을 실제 캐리지 리턴으로
+                .replace(/\\t/g, '\t');   // \t를 실제 탭으로
+            
+            // 3. Markdown 헤더 처리 (순서 중요: 더 많은 #부터 처리)
+            // #### 헤더 (h4) - Bold + 줄바꿈
+            escaped = escaped.replace(/^####\s*(.+)$/gm, '<br><span class="header-4">$1</span><br>');
+            
+            // ### 헤더 (h3) - Bold만
+            escaped = escaped.replace(/^###\s*(.+)$/gm, '<span class="header-3">$1</span>');
+            
+            // ## 헤더 (h2) - 더 큰 Bold + 줄바꿈
+            escaped = escaped.replace(/^##\s*(.+)$/gm, '<br><span class="header-2">$1</span><br>');
+            
+            // # 헤더 (h1) - 가장 큰 Bold + 줄바꿈
+            escaped = escaped.replace(/^#\s*(.+)$/gm, '<br><span class="header-1">$1</span><br>');
+            
+            // 4. 기타 텍스트 서식 처리
+            // **텍스트** 형태를 <strong>텍스트</strong>로 변환 (Bold만)
+            escaped = escaped.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>');
+            
+            // &quot;내용&quot; 형태를 <strong><em>내용</em></strong>로 변환 (Bold + 기울기)
+            escaped = escaped.replace(/&quot;([^&]+?)&quot;/g, '<strong><em>$1</em></strong>');
+
+            // ===== 새로 추가: \내용\ 패턴 처리 =====
+            // \내용\ 형태를 <strong><em>내용</em></strong>로 변환 (Bold + 기울기)
+            escaped = escaped.replace(/\\([^\\]+)\\/g, '<strong><em>$1</em></strong>');
+
+            // [내용] 형태를 <strong><em>내용</em></strong>로 변환 (Bold + 기울기)
+            escaped = escaped.replace(/\[([^\]]+)\]/g, '<strong><em>$1</em></strong>');
+            
+            // 5. 실제 줄바꿈을 <br>로 변환
+            return escaped.replace(/\n/g, '<br>');
+        }
+
+        // 연결 상태 확인
+        function updateConnectionStatus(online) {
+            if (online) {
+                connectionStatus.textContent = '온라인';
+                connectionStatus.className = 'connection-status online';
+            } else {
+                connectionStatus.textContent = '오프라인';
+                connectionStatus.className = 'connection-status offline';
+            }
+        }
+
+        window.addEventListener('online', () => updateConnectionStatus(true));
+        window.addEventListener('offline', () => updateConnectionStatus(false));
+
+        function addMessage(content, type = 'user', streaming = false) {
+            const messageDiv = document.createElement('div');
+            messageDiv.className = `message ${type}`;
+            messageDiv.id = `message-${++messageCounter}`;
+            
+            const contentDiv = document.createElement('div');
+            contentDiv.className = 'message-content';
+            
+            if (type === 'info') {
+                contentDiv.className += ' message-info';
+            } else if (type === 'error') {
+                contentDiv.className += ' message-error';
+            }
+            
+            if (!streaming) {
+                const formattedContent = formatTextForHTML(content);
+                contentDiv.innerHTML = formattedContent;
+            }
+            
+            messageDiv.appendChild(contentDiv);
+            chatMessages.appendChild(messageDiv);
+            
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 10);
+            
+            return contentDiv;
+        }
+
+        function showProcessing() {
+            typingIndicator.style.display = 'block';
+            setTimeout(() => {
+                chatMessages.scrollTop = chatMessages.scrollHeight;
+            }, 10);
+        }
+
+        function hideProcessing() {
+            typingIndicator.style.display = 'none';
+        }
+
+        function setProcessing(processing) {
+            isProcessing = processing;
+            uploadButton.disabled = processing;
+            fileInput.disabled = processing;
+            
+            if (processing) {
+                uploadButtonText.textContent = '처리중...';
+                document.body.classList.add('loading');
+                showProcessing();
+            } else {
+                uploadButtonText.textContent = '업로드 & 분석';
+                document.body.classList.remove('loading');
+                hideProcessing();
+            }
+        }
+
+        // ===== 파일 업로드 및 스트리밍 처리 =====
+        uploadForm.addEventListener('submit', async function(e) {
+            e.preventDefault();
+            
+            if (!fileInput.files[0] || isProcessing) return;
+
+            const file = fileInput.files[0];
+            
+            // 파일 크기 체크 (25MB 제한)
+            if (file.size > 25 * 1024 * 1024) {
+                addMessage('파일 크기가 너무 큽니다. 25MB 이하의 파일을 선택해주세요.', 'error');
+                return;
+            }
+            
+            // 파일 정보 표시
+            addMessage(`🎵 업로드된 파일: ${file.name} (${(file.size / 1024 / 1024).toFixed(2)}MB)`, 'user');
+            
+            setProcessing(true);
+            
+            const controller = new AbortController();
+            const timeoutId = setTimeout(() => {
+                controller.abort();
+            }, 300000); // 5분 타임아웃
+            
+            try {
+                const formData = new FormData();
+                formData.append('file', file);
+                
+                const response = await fetch('/speak_stream/', {
+                    method: 'POST',
+                    body: formData,
+                    signal: controller.signal
+                });
+
+                clearTimeout(timeoutId);
+
+                if (!response.ok) {
+                    throw new Error(`HTTP error! status: ${response.status}`);
+                }
+
+                const reader = response.body.getReader();
+                const decoder = new TextDecoder();
+                
+                let botMessageDiv = null;
+                let botContent = '';
+                let lastUpdateTime = Date.now();
+                let buffer = '';
+                let isLLMResponse = false; // LLM 응답 단계인지 확인
+
+                while (true) {
+                    const { done, value } = await reader.read();
+                    if (done) {
+                        if (botMessageDiv && !botContent.trim()) {
+                            addMessage('응답을 받지 못했습니다. 다시 시도해주세요.', 'error');
+                        }
+                        break;
+                    }
+
+                    const chunk = decoder.decode(value, { stream: true });
+                    buffer += chunk;
+                    
+                    // 완전한 라인들만 처리
+                    const lines = buffer.split('\n');
+                    buffer = lines.pop() || '';
+                    
+                    for (const line of lines) {
+                        const trimmedLine = line.trim();
+                        if (trimmedLine) {
+                            // 시스템 메시지들은 별도 처리
+                            if (trimmedLine.includes('🎤 인식된 음성:') || 
+                                trimmedLine.includes('📚 관련 문서') || 
+                                trimmedLine.includes('🧠 관련 문서') ||
+                                trimmedLine.includes('✅ 답변 생성 완료') ||
+                                trimmedLine.includes('🔊 TTS 상태') ||
+                                trimmedLine.includes('📝 이 답변은') ||
+                                trimmedLine.includes('🖥️ 시스템 정보') ||
+                                trimmedLine.includes('참고 문서:')) {
+                                
+                                // 이전 LLM 응답이 있으면 완료 처리
+                                if (isLLMResponse && botMessageDiv && botContent.trim()) {
+                                    const formattedContent = formatTextForHTML(botContent);
+                                    botMessageDiv.innerHTML = formattedContent;
+                                    isLLMResponse = false;
+                                    botMessageDiv = null;
+                                    botContent = '';
+                                }
+                                
+                                // 정보 메시지 추가
+                                addMessage(trimmedLine, 'info');
+                                continue;
+                            }
+                            
+                            // LLM 응답 시작 감지
+                            if (trimmedLine.includes('🤖 답변 생성 중...')) {
+                                isLLMResponse = true;
+                                // 새로운 응답 메시지 시작 준비
+                                botMessageDiv = null;
+                                botContent = '';
+                                addMessage(trimmedLine, 'info');
+                                continue;
+                            }
+                            
+                            // LLM 응답 단계에서 실제 답변 내용 처리
+                            if (isLLMResponse) {
+                                // 새 응답 메시지 시작
+                                if (!botMessageDiv) {
+                                    botMessageDiv = addMessage('', 'bot', true);
+                                    botContent = '';
+                                }
+                                
+                                // 답변 완료 표시는 무시
+                                if (trimmedLine.includes('❌ 오류 발생:')) {
+                                    addMessage(trimmedLine, 'error');
+                                    isLLMResponse = false;
+                                    continue;
+                                }
+                                
+                                // 일반 LLM 응답 토큰은 연결 (공백으로 구분)
+                                if (botContent) {
+                                    botContent += ' ' + trimmedLine;
+                                } else {
+                                    botContent = trimmedLine;
+                                }
+                                
+                                // 포맷팅 적용하여 실시간 업데이트
+                                const formattedContent = formatTextForHTML(botContent);
+                                botMessageDiv.innerHTML = formattedContent;
+                                
+                            } else {
+                                // LLM 응답 이전의 정보들
+                                addMessage(trimmedLine, 'info');
+                            }
+                            
+                            // 스크롤 최적화
+                            const now = Date.now();
+                            if (now - lastUpdateTime > 50) {
+                                chatMessages.scrollTop = chatMessages.scrollHeight;
+                                lastUpdateTime = now;
+                            }
+                        }
+                    }
+                }
+
+                // 파일 입력 초기화
+                fileInput.value = '';
+                
+            } catch (error) {
+                clearTimeout(timeoutId);
+                if (error.name === 'AbortError') {
+                    addMessage('처리 시간이 초과되었습니다. 더 짧은 파일로 다시 시도해주세요.', 'error');
+                } else {
+                    console.error('업로드 오류:', error);
+                    addMessage(`파일 처리 중 오류가 발생했습니다: ${error.message}`, 'error');
+                    updateConnectionStatus(false);
+                }
+            } finally {
+                setProcessing(false);
+            }
+        });
+
+        // ===== 파일 관련 이벤트 처리 =====
+        // 파일 선택 시 정보 표시 및 검증
+        fileInput.addEventListener('change', function(e) {
+            const file = e.target.files[0];
+            if (file) {
+                console.log(`선택된 파일: ${file.name}, 크기: ${(file.size / 1024 / 1024).toFixed(2)}MB, 타입: ${file.type}`);
+                
+                // 파일 크기 및 타입 검증
+                if (file.size > 25 * 1024 * 1024) {
+                    uploadButtonText.textContent = '파일이 너무 큼 (25MB 제한)';
+                    uploadButton.disabled = true;
+                    uploadButton.style.background = '#f44336';
+                } else if (!file.type.startsWith('audio/')) {
+                    uploadButtonText.textContent = '오디오 파일만 가능';
+                    uploadButton.disabled = true;
+                    uploadButton.style.background = '#f44336';
+                } else {
+                    uploadButtonText.textContent = '업로드 & 분석';
+                    uploadButton.disabled = false;
+                    uploadButton.style.background = '#667eea';
+                }
+            }
+        });
+
+        // ===== 드래그 앤 드롭 기능 =====
+        uploadContainer.addEventListener('dragover', function(e) {
+            e.preventDefault();
+            uploadContainer.classList.add('drag-over');
+        });
+
+        uploadContainer.addEventListener('dragleave', function(e) {
+            e.preventDefault();
+            uploadContainer.classList.remove('drag-over');
+        });
+
+        uploadContainer.addEventListener('drop', function(e) {
+            e.preventDefault();
+            uploadContainer.classList.remove('drag-over');
+            
+            const files = e.dataTransfer.files;
+            if (files.length > 0) {
+                const file = files[0];
+                if (file.type.startsWith('audio/')) {
+                    fileInput.files = files;
+                    const event = new Event('change', { bubbles: true });
+                    fileInput.dispatchEvent(event);
+                } else {
+                    addMessage('오디오 파일만 업로드할 수 있습니다.', 'error');
+                }
+            }
+        });
+
+        // 페이지 로드 시 연결 상태 확인
+        window.addEventListener('load', () => {
+            updateConnectionStatus(navigator.onLine);
+        });
+
+        // 브라우저 뒤로가기/앞으로가기 처리
+        window.addEventListener('beforeunload', (e) => {
+            if (isProcessing) {
+                e.preventDefault();
+                e.returnValue = '파일을 처리 중입니다. 정말 페이지를 떠나시겠습니까?';
+            }
+        });
+    </script>
+</body>
+</html>

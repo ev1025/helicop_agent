@@ -1,0 +1,61 @@
+기초 비행 원리
+174·
+요구할 때 Low Rotor RPM이 발생한다. 이 현상은 
+“Over Pitching”이라 하며, 엔진이 이미 최대 마력
+을 생산하는 중 조종사가 Collective를 올리는 경우
+에 발생하는데, 이는 흔히 높은 밀도고도에서 쉽게 
+발생한다. 이에 따라 Main Rotor Blade의 받음각
+이 증가하면서 Main Rotor Blade의 회전속도를 유
+지하기 위해 엔진 마력이 더 필요하지만, 엔진은 추
+가 마력을 만들어 내지 못해 Blade의 속도가 감소한
+다. 무거운 짐을 실은 헬리콥터가 밀폐된 지역에서 
+이륙할 때도 비슷한 상황이 발생할 수 있다. 
+Main Rotor Blade 회전 속도가 감소하면 엔진이 
+생산할 수 있는 마력도 감소한다. 엔진 마력은 회전 
+속도에 비례하므로, Over Pitching으로 인한 RPM 
+10%의 손실 또는 위의 다른 상황으로 인한 엔진 마
+력의 10% 손실은 회복하기까지 매우 느리고 어려울 
+것이다. 적은 엔진 동력과 Low Rotor RPM으로 인
+한 적은 양력은 헬리콥터를 하강시킨다. 이때 조종
+사가 강하를 막기 위해 Collective를 상승시키면, 그 
+상황은 Rotor Blade 실속으로 이어질 것이다. 
+2.4.8 Loss of Tail Rotor Effectiveness(LTE)
+Anti-Torque 시스템 결함
+Anti-Torque 시스템의 결함은 보통 두 가지로 구
+분된다. 
+첫 번째는 Tail Rotor 시스템의 Power 구동 부분
+의 결함으로, Anti-Torque 기능을 완전히 상실하
+는 경우이다. 
+두 번째는 기계적인 조종 계통의 결함으로, Tail 
+Rotor에서는 Anti-Torque 추력을 제공하고 있지
+만 조종사가 Tail Rotor의 추력을 변화시키거나 조
+종을 할 수 없는 경우이다.
+구동축이나 Tail Rotor 기어 박스가 고장일 경우, 
+또 Tail Rotor가 통째로 없어져 Anti-Torque 기능
+이 상실된 경우, 헬리콥터는 바로 요(Yaw) 현상이 
+발생하게 된다. 반시계 방향으로 회전하는 헬리콥터
+의 경우에는 헬리콥터가 오른쪽으로 Yawing 하게 
+되고, 시계 방향으로 회전하는 헬리콥터의 경우에는 
+왼쪽으로 Yawing 하게 된다. 
+Yawing 현상의 정도는 사용하고 있는 Power의 
+크기와 헬리콥터의 속도에 비례하여 커지게 된다. 
+헬리콥터 속도가 저속이면서 높은 Power를 사용하
+고 있을 때, Anti-Torque 결함이 발생하면 심하게 
+오른쪽 방향으로 Yawing 현상이 일어난다. 반대로 
+고속에서 낮은 Power를 사용하고 있을 때는 빠른 
+기류에 의하여 헬리콥터가 회전하는 것을 막아 주기 
+때문에 Yawing 현상이 작게 발생한다. 
+Loss of Tail Rotor Effectiveness, LTE
+LTE(Loss of Tail Rotor Effectiveness)란 아
+무런 조작을 하지 않았는데도 불구하고 급격하게 
+Yawing 현상이 발생하는 것으로 이것은 조종사로
+서 Main Rotor와 Tail Rotor의 교차로 인한 공기역
+학적 LTE를 이해하는 것이 매우 중요하고, 기계적 
+결함을 생기지 않게 예방하는 것이 가장 중요하다. 
+LTE는 Tail Rotor로 흐르는 공기 흐름이 다른 방
+향으로 변하는 상태를 말하는데, Tail Rotor Blade
+를 통과하는 공기의 각이나 속도에 의해 흐름이 변
+한다. 
+효과적인 Tail Rotor는 앞에서 언급한 것과 같이, 
+꾸준하고 지속적인 Anti-Torque 를 생성하기 위
+해 안정되고 상대적으로 방해되지 않는 공기 흐름에

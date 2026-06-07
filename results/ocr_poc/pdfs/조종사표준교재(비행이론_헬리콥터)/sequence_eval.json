@@ -1,0 +1,986 @@
+{
+  "pypdf": {
+    "avg_sequence_similarity": 1.0,
+    "by_category": {
+      "weak": 1.0,
+      "table_suspect": 1.0,
+      "normal": 1.0
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 0
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 8,
+        "model_words": 8
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 150,
+        "model_words": 150
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 94,
+        "model_words": 94
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 21,
+        "model_words": 21
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 95,
+        "model_words": 95
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 308,
+        "model_words": 308
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 74,
+        "model_words": 74
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 51,
+        "model_words": 51
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 71,
+        "model_words": 71
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 307,
+        "model_words": 307
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 75,
+        "model_words": 75
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 47,
+        "model_words": 47
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 61,
+        "model_words": 61
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 1.0,
+        "pypdf_words": 63,
+        "model_words": 63
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 0
+      }
+    ]
+  },
+  "easyocr": {
+    "avg_sequence_similarity": 0.5463,
+    "by_category": {
+      "weak": 0.4545,
+      "table_suspect": 0.5574,
+      "normal": 0.5401
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 20
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.4545,
+        "pypdf_words": 8,
+        "model_words": 14
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.6821,
+        "pypdf_words": 150,
+        "model_words": 152
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6455,
+        "pypdf_words": 94,
+        "model_words": 95
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4545,
+        "pypdf_words": 21,
+        "model_words": 45
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.7761,
+        "pypdf_words": 95,
+        "model_words": 106
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.2941,
+        "pypdf_words": 308,
+        "model_words": 338
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3721,
+        "pypdf_words": 74,
+        "model_words": 141
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4625,
+        "pypdf_words": 51,
+        "model_words": 109
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8088,
+        "pypdf_words": 71,
+        "model_words": 65
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.6441,
+        "pypdf_words": 307,
+        "model_words": 314
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4906,
+        "pypdf_words": 75,
+        "model_words": 137
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4615,
+        "pypdf_words": 47,
+        "model_words": 70
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6721,
+        "pypdf_words": 61,
+        "model_words": 61
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4298,
+        "pypdf_words": 63,
+        "model_words": 58
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 9
+      }
+    ]
+  },
+  "paddleocr": {
+    "avg_sequence_similarity": 0.386,
+    "by_category": {
+      "weak": 0.7,
+      "table_suspect": 0.3493,
+      "normal": 0.4037
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 15
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.7,
+        "pypdf_words": 8,
+        "model_words": 12
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.6525,
+        "pypdf_words": 150,
+        "model_words": 132
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.2458,
+        "pypdf_words": 94,
+        "model_words": 85
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.2,
+        "pypdf_words": 21,
+        "model_words": 39
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3422,
+        "pypdf_words": 95,
+        "model_words": 92
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.2966,
+        "pypdf_words": 308,
+        "model_words": 272
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3034,
+        "pypdf_words": 74,
+        "model_words": 104
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4681,
+        "pypdf_words": 51,
+        "model_words": 90
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.5891,
+        "pypdf_words": 71,
+        "model_words": 58
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.2621,
+        "pypdf_words": 307,
+        "model_words": 250
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3067,
+        "pypdf_words": 75,
+        "model_words": 88
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3762,
+        "pypdf_words": 47,
+        "model_words": 54
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3364,
+        "pypdf_words": 61,
+        "model_words": 46
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3248,
+        "pypdf_words": 63,
+        "model_words": 54
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 7
+      }
+    ]
+  },
+  "tesseract": {
+    "avg_sequence_similarity": 0.156,
+    "by_category": {
+      "weak": 0.6667,
+      "table_suspect": 0.1378,
+      "normal": 0.0464
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 20
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.6667,
+        "pypdf_words": 8,
+        "model_words": 7
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.0227,
+        "pypdf_words": 150,
+        "model_words": 468
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.2023,
+        "pypdf_words": 94,
+        "model_words": 163
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.1558,
+        "pypdf_words": 21,
+        "model_words": 56
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.0956,
+        "pypdf_words": 95,
+        "model_words": 198
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.0471,
+        "pypdf_words": 308,
+        "model_words": 668
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.1311,
+        "pypdf_words": 74,
+        "model_words": 170
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.1341,
+        "pypdf_words": 51,
+        "model_words": 128
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.17,
+        "pypdf_words": 71,
+        "model_words": 129
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.0694,
+        "pypdf_words": 307,
+        "model_words": 615
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.0923,
+        "pypdf_words": 75,
+        "model_words": 185
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.0335,
+        "pypdf_words": 47,
+        "model_words": 132
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.2699,
+        "pypdf_words": 61,
+        "model_words": 102
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.093,
+        "pypdf_words": 63,
+        "model_words": 109
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 15
+      }
+    ]
+  },
+  "surya": {
+    "avg_sequence_similarity": 0.5994,
+    "by_category": {
+      "weak": 0.5833,
+      "table_suspect": 0.5802,
+      "normal": 0.6688
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 23
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.5833,
+        "pypdf_words": 8,
+        "model_words": 16
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.961,
+        "pypdf_words": 150,
+        "model_words": 158
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.5638,
+        "pypdf_words": 94,
+        "model_words": 94
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.597,
+        "pypdf_words": 21,
+        "model_words": 46
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6262,
+        "pypdf_words": 95,
+        "model_words": 119
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.4434,
+        "pypdf_words": 308,
+        "model_words": 337
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4513,
+        "pypdf_words": 74,
+        "model_words": 121
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.5605,
+        "pypdf_words": 51,
+        "model_words": 106
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.9583,
+        "pypdf_words": 71,
+        "model_words": 73
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.6019,
+        "pypdf_words": 307,
+        "model_words": 311
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3347,
+        "pypdf_words": 75,
+        "model_words": 164
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6723,
+        "pypdf_words": 47,
+        "model_words": 72
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.5574,
+        "pypdf_words": 61,
+        "model_words": 61
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4806,
+        "pypdf_words": 63,
+        "model_words": 66
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 11
+      }
+    ]
+  },
+  "marker": {
+    "avg_sequence_similarity": 0.8266,
+    "by_category": {
+      "weak": 0.1667,
+      "table_suspect": 0.8507,
+      "normal": 0.9662
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 12
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.1667,
+        "pypdf_words": 8,
+        "model_words": 4
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.9539,
+        "pypdf_words": 150,
+        "model_words": 154
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8093,
+        "pypdf_words": 94,
+        "model_words": 121
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.95,
+        "pypdf_words": 21,
+        "model_words": 19
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.9733,
+        "pypdf_words": 95,
+        "model_words": 92
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.9758,
+        "pypdf_words": 308,
+        "model_words": 311
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.9664,
+        "pypdf_words": 74,
+        "model_words": 75
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8283,
+        "pypdf_words": 51,
+        "model_words": 48
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8921,
+        "pypdf_words": 71,
+        "model_words": 68
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.9689,
+        "pypdf_words": 307,
+        "model_words": 304
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8571,
+        "pypdf_words": 75,
+        "model_words": 72
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8478,
+        "pypdf_words": 47,
+        "model_words": 45
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8788,
+        "pypdf_words": 61,
+        "model_words": 71
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.5038,
+        "pypdf_words": 63,
+        "model_words": 68
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 0
+      }
+    ]
+  },
+  "mineru": {
+    "avg_sequence_similarity": 0.6122,
+    "by_category": {
+      "weak": 0.2857,
+      "table_suspect": 0.5909,
+      "normal": 0.7922
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 3
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.2857,
+        "pypdf_words": 8,
+        "model_words": 6
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.8462,
+        "pypdf_words": 150,
+        "model_words": 136
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3256,
+        "pypdf_words": 94,
+        "model_words": 78
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.95,
+        "pypdf_words": 21,
+        "model_words": 19
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8333,
+        "pypdf_words": 95,
+        "model_words": 85
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.7682,
+        "pypdf_words": 308,
+        "model_words": 270
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.7552,
+        "pypdf_words": 74,
+        "model_words": 69
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6947,
+        "pypdf_words": 51,
+        "model_words": 44
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.7188,
+        "pypdf_words": 71,
+        "model_words": 57
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.7622,
+        "pypdf_words": 307,
+        "model_words": 265
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.1151,
+        "pypdf_words": 75,
+        "model_words": 64
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6667,
+        "pypdf_words": 47,
+        "model_words": 40
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.3925,
+        "pypdf_words": 61,
+        "model_words": 46
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4567,
+        "pypdf_words": 63,
+        "model_words": 64
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 0
+      }
+    ]
+  },
+  "donut": {
+    "avg_sequence_similarity": 0.5659,
+    "by_category": {
+      "weak": 0.7143,
+      "table_suspect": 0.5359,
+      "normal": 0.6167
+    },
+    "n_pages_compared": 14,
+    "per_page": [
+      {
+        "page": 0,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 7
+      },
+      {
+        "page": 2,
+        "category": "weak",
+        "sequence_similarity": 0.7143,
+        "pypdf_words": 8,
+        "model_words": 6
+      },
+      {
+        "page": 3,
+        "category": "normal",
+        "sequence_similarity": 0.9172,
+        "pypdf_words": 150,
+        "model_words": 140
+      },
+      {
+        "page": 28,
+        "category": "table_suspect",
+        "sequence_similarity": 0.0412,
+        "pypdf_words": 94,
+        "model_words": 3
+      },
+      {
+        "page": 44,
+        "category": "table_suspect",
+        "sequence_similarity": 0.2174,
+        "pypdf_words": 21,
+        "model_words": 25
+      },
+      {
+        "page": 54,
+        "category": "table_suspect",
+        "sequence_similarity": 0.7702,
+        "pypdf_words": 95,
+        "model_words": 66
+      },
+      {
+        "page": 76,
+        "category": "normal",
+        "sequence_similarity": 0.5225,
+        "pypdf_words": 308,
+        "model_words": 270
+      },
+      {
+        "page": 109,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6338,
+        "pypdf_words": 74,
+        "model_words": 68
+      },
+      {
+        "page": 123,
+        "category": "table_suspect",
+        "sequence_similarity": 0.7959,
+        "pypdf_words": 51,
+        "model_words": 47
+      },
+      {
+        "page": 140,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8732,
+        "pypdf_words": 71,
+        "model_words": 71
+      },
+      {
+        "page": 155,
+        "category": "normal",
+        "sequence_similarity": 0.4104,
+        "pypdf_words": 307,
+        "model_words": 307
+      },
+      {
+        "page": 172,
+        "category": "table_suspect",
+        "sequence_similarity": 0.8477,
+        "pypdf_words": 75,
+        "model_words": 76
+      },
+      {
+        "page": 188,
+        "category": "table_suspect",
+        "sequence_similarity": 0.6981,
+        "pypdf_words": 47,
+        "model_words": 59
+      },
+      {
+        "page": 190,
+        "category": "table_suspect",
+        "sequence_similarity": 0.0625,
+        "pypdf_words": 61,
+        "model_words": 3
+      },
+      {
+        "page": 226,
+        "category": "table_suspect",
+        "sequence_similarity": 0.4186,
+        "pypdf_words": 63,
+        "model_words": 66
+      },
+      {
+        "page": 228,
+        "category": "weak",
+        "sequence_similarity": null,
+        "pypdf_words": 0,
+        "model_words": 14
+      }
+    ]
+  }
+}

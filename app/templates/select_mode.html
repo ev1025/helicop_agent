@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>모드 선택</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Arial', sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .container {
+            text-align: center;
+            background: white;
+            padding: 60px 40px;
+            border-radius: 20px;
+            box-shadow: 0 20px 40px rgba(0,0,0,0.2);
+            max-width: 500px;
+            width: 90%;
+        }
+
+        h1 {
+            color: #333;
+            margin-bottom: 40px;
+            font-size: 32px;
+            font-weight: bold;
+        }
+
+        .mode-buttons {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .mode-button {
+            padding: 20px 30px;
+            font-size: 18px;
+            font-weight: bold;
+            border: none;
+            border-radius: 15px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: block;
+            color: white;
+        }
+
+        .mode-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.3);
+        }
+
+        .chat-button {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+        }
+
+        .chat-button:hover {
+            background: linear-gradient(135deg, #5a6fd8 0%, #6a4190 100%);
+        }
+
+        .mp3-button {
+            background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%);
+        }
+
+        .mp3-button:hover {
+            background: linear-gradient(135deg, #ee82e9 0%, #f3455a 100%);
+        }
+
+        .speak-button {
+            background: linear-gradient(135deg, #4facfe 0%, #00f2fe 100%);
+        }
+
+        .speak-button:hover {
+            background: linear-gradient(135deg, #3d9aec 0%, #00e0ec 100%);
+        }
+
+        .description {
+            color: #666;
+            margin-top: 30px;
+            font-size: 14px;
+            line-height: 1.6;
+        }
+
+        @media (max-width: 600px) {
+            .container {
+                padding: 40px 20px;
+                width: 95%;
+            }
+            
+            h1 {
+                font-size: 24px;
+                margin-bottom: 30px;
+            }
+            
+            .mode-button {
+                padding: 15px 20px;
+                font-size: 16px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚁 헬리콥터 교육 시스템</h1>
+        
+        <div class="mode-buttons">
+            <a href="/chat" class="mode-button chat-button">
+                💬 채팅으로 질문하기
+            </a>
+            
+            <a href="/mp3" class="mode-button mp3-button">
+                🎵 MP3 파일 업로드
+            </a>
+            
+            <a href="/speak" class="mode-button speak-button">
+                🎤 음성으로 질문하기
+            </a>
+        </div>
+        
+        <div class="description">
+            헬리콥터 조종사 표준교재를 기반으로 한 RAG 시스템입니다.<br>
+            질문에 대해 관련 문서를 검색하여 정확한 답변을 제공합니다.
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,47 @@
+{
+  "_description": "Phase 3 Repetition Optimization 최적 설정",
+  "_test_date": "2025-12-02",
+  "_total_configs": 52,
+  "_all_success": true,
+
+  "recommended_for_phase5_phase6": {
+    "_comment": "Phase 5/6에서 사용할 최우수 설정",
+    "temperature": 0.6,
+    "repetition_penalty": 1.1,
+    "dedup_strategy": "hybrid",
+    "similarity_threshold": 0.8,
+    "prompt_version": "v1",
+    "comprehensive_score": 58.59,
+    "rag_quality_score": 30.49,
+    "exact_repetition": 93.33,
+    "config_name": "prompt_v1_sim0.8",
+    "rank": 1
+  },
+
+  "top_3_configs": [
+    {
+      "rank": 1,
+      "name": "prompt_v1_sim0.8",
+      "temperature": 0.6,
+      "repetition_penalty": 1.1,
+      "comprehensive": 58.59,
+      "rag_quality": 30.49
+    },
+    {
+      "rank": 2,
+      "name": "dedup_string_only_sim0.7",
+      "temperature": 0.6,
+      "repetition_penalty": 1.1,
+      "comprehensive": 57.90,
+      "rag_quality": 30.30
+    },
+    {
+      "rank": 3,
+      "name": "mq_q3_k7_f5",
+      "temperature": 0.6,
+      "repetition_penalty": 1.1,
+      "comprehensive": 57.78,
+      "rag_quality": 29.90
+    }
+  ]
+}

@@ -1,0 +1,21 @@
+비행이론(헬리콥터)
+·117  
+4.2.4 선회계(Turn Coordinator)
+Turn and Slip Indicator의 주요한 제한 사항은 
+항공기의 수직축 회전만을 감지한다는 것이다. 그
+에 비하여 Turn Coordinator는 Turn and Slip 
+Indicator와 같이 자이로의 세차성(Precision)을 이
+용하지만, 짐벌 구조가 항공기의 종축으로부터 30
+도 각도로 기울어져 Roll과 Yaw를 둘 다 감지하도
+록 해 준다. Turn Coordinator의 자이로는 전기로 
+작동되므로 진공펌프(Suction Pump)로 작동되는 
+자세계가 고장 났을 때 대체 계기로 이용할 수 있다.
+계기의 눈금은 수평비행과 표준율 선회를 지시하
+며, ‘Coordinator Ball’이라 불리는 Inclinometer는 
+경사각(Bank Angle)과 Yaw의 비율 관계를 나타낸
+다. Ball이 선회 방향 바깥쪽에 있을 때는 Skidding 
+[그림 2-94] Turn and Slip indicator
+[그림 2-95] Turn indicators rely on controlled precession for  
+their operation
+[그림 2-96] Coordinated & Skid, Slip Turn
+[그림 2-93] Horizontal situation indicator(HSI)

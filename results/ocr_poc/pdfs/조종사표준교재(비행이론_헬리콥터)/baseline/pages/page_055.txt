@@ -1,0 +1,46 @@
+헬리콥터의 구조와 시스템
+48·
+자유회전장치(Freewheeling Unit)
+헬리콥터의 양력은 회전하는 Main Rotor Blade
+에 의해 제공되기 때문에, 엔진이 고장 났을 경우 
+Main Rotor Blade는 자유롭게 회전해야 한다. 자
+유회전장치(Freewheeling unit)는 엔진의 회전속도
+가 Main Rotor의 회전속도보다 느려지면 자동으로 
+엔진과 Main Rotor를 분리시켜 준다. 이것은 Main 
+Rotor와 Tail Rotor가 정상 비행 속도로 회전을 계
+속할 수 있게 해 준다.
+대부분의 자유회전장치는 엔진과 Main Rotor 변
+속장치 사이에 위치한, 한 방향으로만 돌 수 있는 
+Sprag Clutch로 구성되어 있다. 이것은 피스톤 헬
+리콥터의 경우 Upper Pulley에 장착되어 있고, 터
+빈 헬리콥터의 경우 Accessory Gearbox에 장착되
+어 있다. 엔진이 Rotor를 구동할 때, Sprag clutch
+의 경사진 면의 롤러가 바깥쪽 드럼통에 힘을 가하
+도록 해 준다. 따라서 엔진이 동력전달장치의 회전
+속도를 초과하지 않는다. 
+그러나 엔진이 고장 났을 경우에는 롤러가 안쪽으
+로 움직여 바깥쪽 드럼통이 분리되고 안쪽 부분보다 
+자유롭게 회전할 수 있어, 동력전달장치의 회전속도
+가 엔진의 회전속도보다 빨라질 수 있다. 즉 엔진의 
+회전속도는 동력전달장치의 회전속도보다 느려지게 
+되고 헬리콥터는 자동 활공 상태가 된다.
+2.4.2 구동 방식에 따른 분류
+Rotor 시스템은 양력을 생성하는 헬리콥터의 회
+전 부분이다. Rotor는 마스트(Mast), 허브(Hub)와 
+Rotor Blade로 구성되어 있다. 마스트는 빈 원기둥 
+형태의 금속 축으로, 위쪽으로 연장되고 구동되며 
+Transmission와 연결되어 있다. Rotor Blade는 허
+브에 여러 가지 방식으로 부착되어 있다. 
+Main Rotor 시스템은 Main Rotor Blade가 허브
+에 어떤 방식으로 부착되고 움직이는 방법에 따라 
+아래 세 가지로 분류된다.
+1. 반고정형(Semirigid Rotor System)
+2. 고정형(Rigid Rotor System)
+3.   완전 관절형(Fully Articulated Rotor System)
+Bearingless Rotor 시스템 같은 최신의 일부 
+Rotor 시스템은, 이러한 시스템 설계의 조합을 사용
+한다.
+반고정형 Rotor 시스템(Semirigid Rotor System)
+(1) 반고정형 Rotor 시스템의 작동원리
+반고정형 Rotor 시스템은 Main Rotor 허브에 두 
+[그림 2-39] 자유회전장치

@@ -1,0 +1,20 @@
+{
+  "parent_document_mode": true,
+  "child_chunk_size": 500,
+  "child_chunk_overlap": 100,
+  "parent_chunk_size": 2500,
+  "parent_chunk_overlap": 250,
+  "chunk_size": 950,
+  "chunk_overlap": 50,
+  "vector_search_top_k": 10,
+  "max_context_length": 8000,
+  "vector_db_path": "chroma_db_new",
+  "collection_name": "new_manual",
+  "pdf_path": "조종사표준교재(비행이론_헬리콥터).pdf",
+  "rag_context_max_length": 12000,
+  "rag_context_sentence_boundary_min": 800,
+  "context_min_remaining_length": 200,
+  "text_cleaning_mode": "v1",
+  "reranker_top_k": 3,
+  "reranker_score_threshold": 0.7
+}

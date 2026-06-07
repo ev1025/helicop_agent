@@ -1,0 +1,116 @@
+{
+  "model": "easyocr",
+  "n_pages": 21,
+  "n_failed": 0,
+  "total_chars": 8397,
+  "total_seconds": 122.4,
+  "avg_seconds_per_page": 5.83,
+  "warmup_seconds": 6.9,
+  "timings": [
+    {
+      "page": 0,
+      "seconds": 4.91,
+      "chars": 120
+    },
+    {
+      "page": 1,
+      "seconds": 4.36,
+      "chars": 0
+    },
+    {
+      "page": 2,
+      "seconds": 4.62,
+      "chars": 97
+    },
+    {
+      "page": 3,
+      "seconds": 6.74,
+      "chars": 689
+    },
+    {
+      "page": 27,
+      "seconds": 4.35,
+      "chars": 0
+    },
+    {
+      "page": 28,
+      "seconds": 5.8,
+      "chars": 437
+    },
+    {
+      "page": 44,
+      "seconds": 5.17,
+      "chars": 275
+    },
+    {
+      "page": 54,
+      "seconds": 5.98,
+      "chars": 559
+    },
+    {
+      "page": 76,
+      "seconds": 8.92,
+      "chars": 1450
+    },
+    {
+      "page": 109,
+      "seconds": 6.79,
+      "chars": 733
+    },
+    {
+      "page": 123,
+      "seconds": 6.64,
+      "chars": 579
+    },
+    {
+      "page": 131,
+      "seconds": 4.63,
+      "chars": 0
+    },
+    {
+      "page": 140,
+      "seconds": 5.66,
+      "chars": 339
+    },
+    {
+      "page": 155,
+      "seconds": 9.15,
+      "chars": 1406
+    },
+    {
+      "page": 172,
+      "seconds": 7.26,
+      "chars": 608
+    },
+    {
+      "page": 188,
+      "seconds": 5.79,
+      "chars": 400
+    },
+    {
+      "page": 189,
+      "seconds": 4.63,
+      "chars": 0
+    },
+    {
+      "page": 190,
+      "seconds": 5.62,
+      "chars": 277
+    },
+    {
+      "page": 226,
+      "seconds": 5.74,
+      "chars": 349
+    },
+    {
+      "page": 227,
+      "seconds": 4.62,
+      "chars": 0
+    },
+    {
+      "page": 228,
+      "seconds": 5.02,
+      "chars": 79
+    }
+  ]
+}

@@ -1,0 +1,115 @@
+{
+  "model": "mineru",
+  "n_pages": 21,
+  "n_failed": 6,
+  "total_chars": 9089,
+  "total_seconds": 37.21,
+  "avg_seconds_per_page": 1.77,
+  "timings": [
+    {
+      "page": 0,
+      "seconds": 9.41,
+      "chars": 263
+    },
+    {
+      "page": 1,
+      "seconds": 0.89,
+      "chars": 0
+    },
+    {
+      "page": 2,
+      "seconds": 1.73,
+      "chars": 183
+    },
+    {
+      "page": 3,
+      "seconds": 1.66,
+      "chars": 665
+    },
+    {
+      "page": 27,
+      "seconds": 0.82,
+      "chars": 0
+    },
+    {
+      "page": 28,
+      "seconds": 2.38,
+      "chars": 401
+    },
+    {
+      "page": 44,
+      "seconds": 1.48,
+      "chars": 578
+    },
+    {
+      "page": 54,
+      "seconds": 1.49,
+      "chars": 951
+    },
+    {
+      "page": 76,
+      "seconds": 1.85,
+      "chars": 1480
+    },
+    {
+      "page": 109,
+      "seconds": 1.41,
+      "chars": 731
+    },
+    {
+      "page": 123,
+      "seconds": 1.35,
+      "chars": 570
+    },
+    {
+      "page": 131,
+      "seconds": 0.83,
+      "chars": 0
+    },
+    {
+      "page": 140,
+      "seconds": 1.14,
+      "chars": 335
+    },
+    {
+      "page": 155,
+      "seconds": 1.77,
+      "chars": 1500
+    },
+    {
+      "page": 172,
+      "seconds": 1.44,
+      "chars": 473
+    },
+    {
+      "page": 188,
+      "seconds": 1.19,
+      "chars": 366
+    },
+    {
+      "page": 189,
+      "seconds": 0.85,
+      "chars": 0
+    },
+    {
+      "page": 190,
+      "seconds": 2.11,
+      "chars": 205
+    },
+    {
+      "page": 226,
+      "seconds": 1.45,
+      "chars": 388
+    },
+    {
+      "page": 227,
+      "seconds": 0.83,
+      "chars": 0
+    },
+    {
+      "page": 228,
+      "seconds": 1.13,
+      "chars": 0
+    }
+  ]
+}

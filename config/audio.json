@@ -1,0 +1,9 @@
+{
+  "sample_rate": 16000,
+  "frame_duration_ms": 30,
+  "silence_threshold_sec": 1.0,
+  "max_audio_file_size": 10485760,
+  "_comments": {
+    "max_audio_file_size": "10MB in bytes (10 * 1024 * 1024)"
+  }
+}

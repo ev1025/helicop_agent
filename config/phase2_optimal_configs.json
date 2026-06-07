@@ -1,0 +1,266 @@
+{
+  "_history": "이 파일은 Phase 2의 여러 실행 결과를 보관합니다",
+  "_current_version": "2025-12-01 Retest (Latest)",
+  "_previous_version": "2025-11-28 Retest (Archived)",
+
+  "latest_retest_2025_12_01": {
+    "_description": "Phase 2 Retest 2025-12-01 최적 RAG 파라미터 설정",
+    "_note": "Phase 5/6에서 사용할 최신 권장 설정",
+    "_total_tests": 6,
+    "_benchmark_questions": 21,
+    "_avg_duration_per_config": "~16-20분",
+
+    "recommended_for_phase5": {
+      "_comment": "Phase 5에서는 이 설정을 고정하고 embedding/reranker 모델만 변경",
+      "reranker_score_threshold": 0.7,
+      "vector_search_top_k": 50,
+      "reranker_top_k": 5,
+      "comprehensive_score": 53.91,
+      "rag_quality_score": 25.18,
+      "exact_repetition_score": 85.24,
+      "config_name": "reference_th0.7_k50_rk5",
+      "rank": 1
+    },
+
+    "recommended_for_phase6": [
+      {
+        "_comment": "1순위: Reference - 가장 높은 comprehensive 점수",
+        "config_name": "reference_th0.7_k50_rk5",
+        "reranker_score_threshold": 0.7,
+        "vector_search_top_k": 50,
+        "reranker_top_k": 5,
+        "comprehensive_score": 53.91,
+        "rag_quality_score": 25.18,
+        "exact_repetition_score": 85.24,
+        "characteristics": "넓은 검색 범위 + 높은 품질 필터링",
+        "recommended_for": "최고 성능 필요 시, Phase 5/6 기준선"
+      },
+      {
+        "_comment": "2순위: Aggressive - 높은 repetition 제거 성능",
+        "config_name": "aggressive_th0.5_k30_rk7",
+        "reranker_score_threshold": 0.5,
+        "vector_search_top_k": 30,
+        "reranker_top_k": 7,
+        "comprehensive_score": 53.75,
+        "rag_quality_score": 23.66,
+        "exact_repetition_score": 82.86,
+        "characteristics": "많은 후보 + 많은 최종 문서",
+        "recommended_for": "반복 제거 성능 중요 시"
+      },
+      {
+        "_comment": "3순위: Balanced - 균형잡힌 성능",
+        "config_name": "balanced_th0.5_k20_rk5",
+        "reranker_score_threshold": 0.5,
+        "vector_search_top_k": 20,
+        "reranker_top_k": 5,
+        "comprehensive_score": 52.37,
+        "rag_quality_score": 25.06,
+        "exact_repetition_score": 71.43,
+        "characteristics": "중간 검색 범위 + 표준 rerank",
+        "recommended_for": "효율성과 성능 균형 필요 시"
+      }
+    ],
+
+    "all_results_summary": {
+      "reference_th0.7_k50_rk5": {
+        "rank": 1,
+        "comprehensive": 53.91,
+        "rag_quality": 25.18,
+        "grammatical_particles": 98.57,
+        "exact_repetition": 85.24,
+        "semantic_redundancy": 99.29,
+        "verbosity": 78.33,
+        "duration_min": 16.35
+      },
+      "aggressive_th0.5_k30_rk7": {
+        "rank": 2,
+        "comprehensive": 53.75,
+        "rag_quality": 23.66,
+        "grammatical_particles": 99.29,
+        "exact_repetition": 82.86,
+        "semantic_redundancy": 100.0,
+        "verbosity": 83.48,
+        "duration_min": 16.22
+      },
+      "balanced_th0.5_k20_rk5": {
+        "rank": 3,
+        "comprehensive": 52.37,
+        "rag_quality": 25.06,
+        "grammatical_particles": 98.57,
+        "exact_repetition": 71.43,
+        "semantic_redundancy": 99.29,
+        "verbosity": 77.74,
+        "duration_min": 18.47
+      },
+      "baseline_th0.7_k10_rk3": {
+        "rank": 4,
+        "comprehensive": 55.18,
+        "rag_quality": 26.96,
+        "grammatical_particles": 99.29,
+        "exact_repetition": 81.9,
+        "semantic_redundancy": 97.86,
+        "verbosity": 82.96,
+        "duration_min": 19.94,
+        "_note": "Comprehensive가 가장 높지만 model_info N/A로 신뢰도 낮음"
+      },
+      "low_th0.5_k10_rk3": {
+        "rank": 5,
+        "comprehensive": 52.68,
+        "rag_quality": 24.62,
+        "grammatical_particles": 97.86,
+        "exact_repetition": 77.62,
+        "semantic_redundancy": 98.57,
+        "verbosity": 78.23,
+        "duration_min": 16.94
+      },
+      "more_cand_th0.7_k20_rk5": {
+        "rank": 6,
+        "comprehensive": 51.52,
+        "rag_quality": 23.78,
+        "grammatical_particles": 97.86,
+        "exact_repetition": 76.19,
+        "semantic_redundancy": 98.57,
+        "verbosity": 74.53,
+        "duration_min": 18.45
+      }
+    },
+
+    "key_findings": {
+      "model_verification_issue": {
+        "description": "Tests 1-2 (baseline, low) showed model_info as 'N/A', Tests 3-6 showed proper model info",
+        "impact": "Tests 1-2 결과는 참고용, Tests 3-6 결과를 우선 신뢰",
+        "action": "reference_th0.7_k50_rk5를 Phase 5/6 기준선으로 선택"
+      },
+      "threshold_impact": {
+        "threshold_0.7": {
+          "configs": ["reference_th0.7_k50_rk5", "baseline_th0.7_k10_rk3", "more_cand_th0.7_k20_rk5"],
+          "avg_comprehensive": 53.54,
+          "avg_exact_repetition": 81.11,
+          "conclusion": "높은 필터링 품질, 안정적"
+        },
+        "threshold_0.5": {
+          "configs": ["aggressive_th0.5_k30_rk7", "balanced_th0.5_k20_rk5", "low_th0.5_k10_rk3"],
+          "avg_comprehensive": 52.93,
+          "avg_exact_repetition": 77.30,
+          "conclusion": "더 많은 문서, 약간 낮은 성능"
+        }
+      },
+      "vector_top_k_impact": {
+        "top_k_50": {
+          "config": "reference_th0.7_k50_rk5",
+          "comprehensive": 53.91,
+          "conclusion": "최고 성능 ⭐"
+        },
+        "top_k_30": {
+          "config": "aggressive_th0.5_k30_rk7",
+          "comprehensive": 53.75,
+          "conclusion": "2위, 반복 제거 우수"
+        },
+        "top_k_20": {
+          "avg_comprehensive": 51.95,
+          "conclusion": "중위권"
+        },
+        "top_k_10": {
+          "avg_comprehensive": 53.93,
+          "conclusion": "높지만 model_info N/A로 신뢰도 낮음"
+        }
+      },
+      "rerank_top_k_impact": {
+        "rerank_top_k_5": {
+          "configs": 4,
+          "avg_comprehensive": 52.37,
+          "conclusion": "가장 안정적, 표준 선택 ✅"
+        },
+        "rerank_top_k_3": {
+          "configs": 2,
+          "avg_comprehensive": 53.93,
+          "conclusion": "높지만 샘플 적고 model_info N/A"
+        },
+        "rerank_top_k_7": {
+          "configs": 1,
+          "comprehensive": 53.75,
+          "conclusion": "단일 샘플, 2위 성능"
+        }
+      }
+    }
+  },
+
+  "archived_retest_2025_11_28": {
+    "_description": "Phase 2 Retest 2025-11-28 최적 RAG 파라미터 설정 (참고용)",
+    "_note": "이 결과는 기록 보존용, 최신 결과 우선 사용",
+
+    "recommended_for_phase5": {
+      "reranker_score_threshold": 0.7,
+      "vector_search_top_k": 50,
+      "reranker_top_k": 5,
+      "comprehensive_score": 52.29,
+      "rag_quality_score": 22.59,
+      "config_name": "reference_th0.7_k50_rk5"
+    },
+
+    "all_results_summary": {
+      "reference_th0.7_k50_rk5": {
+        "rank": 1,
+        "comprehensive": 52.29,
+        "rag_quality": 22.59
+      },
+      "balanced_th0.5_k20_rk5": {
+        "rank": 2,
+        "comprehensive": 52.18,
+        "rag_quality": 21.49
+      },
+      "more_cand_th0.7_k20_rk5": {
+        "rank": 3,
+        "comprehensive": 51.73,
+        "rag_quality": 21.63
+      },
+      "low_th0.5_k10_rk3": {
+        "rank": 4,
+        "comprehensive": 51.59,
+        "rag_quality": 21.78
+      },
+      "baseline_th0.7_k10_rk3": {
+        "rank": 5,
+        "comprehensive": 51.44,
+        "rag_quality": 21.81
+      },
+      "aggressive_th0.5_k30_rk7": {
+        "rank": 6,
+        "comprehensive": 50.3,
+        "rag_quality": 21.1
+      }
+    }
+  },
+
+  "comparison_between_retests": {
+    "2025_12_01_vs_2025_11_28": {
+      "reference_th0.7_k50_rk5": {
+        "comprehensive_diff": "+1.62 (52.29 → 53.91)",
+        "rag_quality_diff": "+2.59 (22.59 → 25.18)",
+        "exact_repetition_diff": "+5.24 (80.0 → 85.24)",
+        "interpretation": "최신 테스트에서 모든 지표 개선"
+      },
+      "aggressive_th0.5_k30_rk7": {
+        "comprehensive_diff": "+3.45 (50.3 → 53.75)",
+        "rag_quality_diff": "+2.56 (21.1 → 23.66)",
+        "exact_repetition_diff": "+5.86 (77.0 → 82.86)",
+        "interpretation": "가장 큰 개선, 2위로 상승 (6위 → 2위)"
+      },
+      "balanced_th0.5_k20_rk5": {
+        "comprehensive_diff": "+0.19 (52.18 → 52.37)",
+        "rag_quality_diff": "+3.57 (21.49 → 25.06)",
+        "exact_repetition_diff": "-16.67 (88.1 → 71.43)",
+        "interpretation": "RAG quality 개선, repetition 저하"
+      },
+      "overall_trend": "최신 테스트에서 전반적인 성능 향상, 특히 aggressive 설정이 크게 개선됨"
+    }
+  },
+
+  "usage_guide": {
+    "current_recommendation": "2025-12-01 Retest 결과 사용",
+    "phase3": "reference_th0.7_k50_rk5 고정, repetition_penalty/temperature 최적화",
+    "phase4": "reference_th0.7_k50_rk5 고정, chunk_size 최적화",
+    "phase5": "reference_th0.7_k50_rk5 고정, embedding/reranker 모델 테스트",
+    "phase6": "LLM 모델별로 top 3 RAG 설정 (reference, aggressive, balanced) 조합 테스트"
+  }
+}

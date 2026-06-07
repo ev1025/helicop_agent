@@ -1,0 +1,9 @@
+![](C:\Users\eg287\OneDrive\바탕 화면\project\수리온\team_gitlab\results\ocr_poc\mineru\_images/260fd84c96f34e070fe637a6ffbbac1147c44858b0a284cd3accef3781ca4f8e.jpg)  
+[그림 2-91] Remote Indicating Compass의 원리
+
+# HSI(Horizontal Situation Indicator)
+
+HSI는 앞에서 설명한 Flux Gate에 의해 항공기의 정확한 방향을 지시하는 방향 계기 기능과 VOR,ILS의 항법 신호 및 Glide Slope 신호를 나타내는비행계기이다. HSI는 조종사가 선택한 항로로부터항공기의 위치를 파악하기 쉽게 나타내 준다.
+
+![](C:\Users\eg287\OneDrive\바탕 화면\project\수리온\team_gitlab\results\ocr_poc\mineru\_images/9ab8f2788cd153a4a439fbde7575d0cbcf2085d0ff8c7735d7a0f00e30fa78f1.jpg)  
+[그림 2-92] VOR indicator

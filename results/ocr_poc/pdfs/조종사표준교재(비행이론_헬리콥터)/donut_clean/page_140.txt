@@ -1,0 +1,1 @@
+비행이론(렐리콥터) Rotor Blade 및 허브의 정의 (Rotor Blade and Hub Definitions) ・ 허브(Hub) - 축에 있는 Blade 루트의 접합점 및 중심점 ・ 텁(Tip) - Rotor Blade의 가장 먼 부분 ・루트(Root) - Blade의 안쪽 끝부분이자 허브에 붙어 있는 부분 ・트위스트(Twist) - 루트로부터 Blade의 바깥쪽 부분까지 Blade 각의 변화 Main Rotor Blade의 각 위치(Angular Position) 는 일반적으로 기수의 위치인 렐리콥터의 종축과 Blade로부터 측정된다. Blade의 방사상 위치는 총 거리의 일부분으로, 허브로부터의 거리이다. . 133

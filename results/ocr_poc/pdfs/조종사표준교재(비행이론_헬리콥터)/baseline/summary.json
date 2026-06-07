@@ -1,0 +1,64 @@
+{
+  "pdf_path": "조종사표준교재(비행이론_헬리콥터).pdf",
+  "total_pages": 229,
+  "extraction_seconds": 2.54,
+  "avg_chars_per_page": 1077.4,
+  "median_chars": 1159,
+  "min_chars": 0,
+  "max_chars": 1846,
+  "avg_kor_ratio": 0.5202,
+  "char_buckets": {
+    "empty (0)": 7,
+    "tiny (1-99)": 1,
+    "small (100-499)": 20,
+    "medium (500-1499)": 167,
+    "large (1500+)": 34
+  },
+  "weak_page_count": 8,
+  "weak_threshold": {
+    "min_chars": 100,
+    "min_kor_ratio": 0.05
+  },
+  "weak_pages": [
+    {
+      "page": 0,
+      "chars": 0,
+      "kor_ratio": 0.0
+    },
+    {
+      "page": 1,
+      "chars": 0,
+      "kor_ratio": 0.0
+    },
+    {
+      "page": 2,
+      "chars": 59,
+      "kor_ratio": 0.2542
+    },
+    {
+      "page": 27,
+      "chars": 0,
+      "kor_ratio": 0.0
+    },
+    {
+      "page": 131,
+      "chars": 0,
+      "kor_ratio": 0.0
+    },
+    {
+      "page": 189,
+      "chars": 0,
+      "kor_ratio": 0.0
+    },
+    {
+      "page": 227,
+      "chars": 0,
+      "kor_ratio": 0.0
+    },
+    {
+      "page": 228,
+      "chars": 0,
+      "kor_ratio": 0.0
+    }
+  ]
+}

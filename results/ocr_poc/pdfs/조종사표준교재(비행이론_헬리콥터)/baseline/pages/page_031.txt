@@ -1,0 +1,54 @@
+헬리콥터의 구조와 시스템
+24·
+로 Main Rotor 회전속도를 조절하지만, Collective
+도 Main Rotor 회전속도에 영향을 주고 Throttle도 
+흡기 압력에 영향을 미친다. 그러므로 두 장치는 주 
+기능에 대한 보조 조절 기능이 고려되어야 하며, 회
+전계(Tachometer 또는 RPM Indicator)와 흡기 압
+력계(Manifold Pressure Gauge)를 상호 비교하여 
+어느 장치를 사용할지 결정하여야 한다. 
+다음 그림은 두 장치의 관계를 도표화한 것이다. 
+[표 2-1] RPM과 Manifold Pressure의 관계 도표
+상태
+조치 사항Manifold 
+pressure
+Main Rotor 
+RPM
+LOW LOW Throttle을 증가하면 Manifold 
+pressure와 RPM이 증가한다.
+HIGH LOW
+Collective를 내리면 Manifold 
+pressure가 감소하고 RPM이 
+ 
+증가한다.
+LOW HIGH
+Collective를 올리면 Manifold 
+pressure가 증가하고 RPM이  
+감소한다.
+HIGH HIGH Throttle을 감소하면 Manifold 
+pressure와 RPM이 감소한다.
+1.4 Cyclic(Cyclic Pitch Control)
+Cyclic은 일반적으로 조종사의 다리 사이에, 또는 
+일부 모델의 경우 두 조종사 좌석 사이에 조종석 바
+닥에서 위쪽으로 나와 있다. 
+Cyclic은 조종사가 원하는 방향으로 헬리콥터를 
+조종할 수 있다.
+공기역학적인 힘 중 총 양력은 Main Rotor의 끝 
+통과면(Tip-path Plane)에 대해 항상 수직이다. 
+Cyclic의 목적은 Main Rotor 끝 통과면을 원하는 
+경로로 기울이는 것이다. Cyclic은 Rotor 디스크 경
+사를 이용해 헬리콥터 추력의 방향을 원하는 방향으
+로 낼 수 있게 한다.
+Rotor 디스크는 Cyclic을 움직이는 방향으로 회전
+면이 기울어진다. 만약 Cyclic을 앞으로 밀면 회전
+면도 앞으로 기울어지고, 뒤로 당기면 회전면은 뒤
+로 기울어진다. 회전면은 자이로처럼 작동하기 때문
+에, Cyclic의 기계적인 연결 부분은 레버가 기우는 
+방향을 기준으로 90도 전방 Rotor Blade의 피치각
+을 감소시켜 받음각을 감소시키고, 90도 후방 Rotor 
+Blade의 피치각을 증가시켜 받음각을 증가시킨다. 
+예를 들어, Cyclic을 앞으로 밀면 헬리콥터의 오른
+쪽을 지나가는 Rotor Blade는 받음각이 감소하고 
+왼쪽의 Rotor Blade는 받음각이 증가하도록 설계되
+어 있다. 따라서 헬리콥터의 오른쪽 Rotor Blade는 
+[그림 2-3] Cyclic 피치 조종

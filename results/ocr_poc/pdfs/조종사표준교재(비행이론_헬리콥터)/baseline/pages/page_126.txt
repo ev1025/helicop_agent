@@ -1,0 +1,31 @@
+비행이론(헬리콥터)
+·119  
+4.4.1 편차(Variation)
+지도는 지리학적 북쪽(진북 : True North)을 지나
+는 경도와 적도를 기준으로 하는 위도로 그려져 있
+다. 지리학적 북쪽에서부터 측정된 방위를 진방위
+(True Direction)라 하며, 자북을 기준으로 측정된 
+방위를 자방위(Magnetic Direction)라 한다. 
+항공기의 Heading Indicator는 자북(Magnetic 
+North)을 기준으로 측정하며, 자북과 진북은 일치
+하지 않고 지역에 따라 차이가 있다. 진북과 자북의 
+차이를 편차(Variation)라 한다. 
+따라서 비행을 위해서는 지도에서 산출한 True 
+Heading에서 편차를 수정한 Magnetic Heading을 
+알아야 한다. 편차가 West이면 진방위에서 편차를 
+더하고, 편차가 East이면 편차만큼 진방위에서 빼 
+주어 Magnetic Heading을 구할 수 있다. 
+※   True Heading + (West Var') - (East Var') 
+= Magnetic Heading
+4.4.2 자차(Deviation)
+Compass 내부의 자석은 지구 자기장에 정렬되어 
+있지만, 항공기 내의 전기 배선이나 자성화된 물체
+는 국소 자기장(Local Magnetic Field)을 발생시켜 
+지구의 자기장과 충돌하여 Compass에 오차를 발생
+시키게 되는데, 이를 자차(Deviation)라 한다. 
+자차는 지형적 위치의 영향을 받지 않고, 항공기 
+기수 방향에 따라 다른 영향을 받는다. 편차는 오차
+를 줄이거나 바꿀 수 없지만, 자차는 정비(Swinging 
+the Compass)를 하여 최소화할 수 있다. 
+[그림 2-98] Magnetic compass
+[그림 2-99] 편차(Variation)

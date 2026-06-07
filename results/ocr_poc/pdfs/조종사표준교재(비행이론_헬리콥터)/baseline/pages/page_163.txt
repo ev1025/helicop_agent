@@ -1,0 +1,53 @@
+기초 비행 원리
+156·
+도에 도달하게 된다. 이러한 Down-Flap은 공기를 
+위로 흐르게 하여 받음각을 증가시키는 상대풍에 대
+한 수직 상승 벡터를 생성함으로써, 유도 흐름의 속
+도를 감소시키는 것과 같은 효과를 발생시킨다. 
+양력 불균형(Dissymmetry of Lift)
+양력 불균형은 Rotor 디스크를 전진 부분과 후진 
+부분으로 나눌 때, 각 절반에 걸쳐 바람 흐름의 속도 
+차이로 인해 양력 차이가 발생하는 것이다. 이러한 
+양력의 차이는 바람이 약한 상태에서의 제자리비행 
+이외의 경우에 헬리콥터를 불안정하게 만들 수 있
+다. 균등한 양력을 얻기 위해 이러한 불균등한 양력
+을 보상, 수정 또는 제거해야 한다. 
+헬리콥터가 전진하면 전진 방향의 Main Rotor 
+Blade와 후진 방향의 Main Rotor Blade에 부딪히
+는 상대풍이 달라진다. 전진 방향의 Main Rotor 
+Blade는 헬리콥터의 속도만큼 상대풍의 속도가 커
+지고, 후진하는 Main Rotor Blade는 헬리콥터의 속
+도만큼 상대풍의 속도가 줄어들게 된다. 따라서 전
+진하는 Main Rotor Blade는 후진하는 Main Rotor 
+Blade보다 양력을 더 많이 발생시킨다.
+만약 반시계 방향으로 회전하는 Main Rotor 
+Blade를 가진 헬리콥터의 경우, 오른쪽 부분
+의 Main Rotor Blade 양력이 왼쪽 부분의 Main 
+Rotor Blade 양력보다 커져서 헬리콥터가 왼쪽으
+로 Roll 하게 된다. 그러나 실제 모든 헬리콥터는 각
+각의 Main Rotor Blade가 자동으로 Flapping과 
+Feathering을 하여 이러한 양력 차이를 극복하도록 
+하고 있다. 3개 혹은 그 이상의 Main Rotor Blade
+를 가진 완전 관절형 헬리콥터에서는 Flapping 힌
+지(Flapping Hinge)를 이용하여 각각의 Main 
+Rotor Blade가 회전하면서 독립적으로 위나 아래로 
+움직인다. 2개의 Blade를 가진 반고정형 헬리콥터
+에서는 테터링 힌지(Teetering Hinge)를 이용하여 
+시소처럼 한쪽 Main Rotor Blade가 올라가면 반대
+쪽 Main Rotor Blade가 내려가도록 설계되어 있다.
+그림과 같이, Main Rotor Blade는 회전면 A 지점
+에서 최대로 위로 올라간다(Flap Up). Main Rotor 
+Blade가 위로 올라가면 시위선과 상대풍의 각이 줄
+어들어 양력도 감소하게 된다. C 지점에서는 Main 
+Rotor Blade가 최대로 아래로 내려가 시위선과 상
+대풍의 각이 커지게 되어 양력이 증가하게 된다. 
+일반적으로 Blade Flapping과 후진 Blade의 상대
+풍 속도로 인하여 헬리콥터의 최대 전진 속도가 제
+한된다. 속도가 빨라지면 후진 Blade의 받음각은 커
+지나 상대풍의 속도는 느려져 양력을 잃게 된다. 이
+러한 현상을 후진 Blade 실속(Retreating Blade 
+Stalls)이라 하는데, 헬리콥터의 기수가 들리고 진동
+이 발생하며, 반시계 방향으로 Main Rotor Blade
+가 회전하는 헬리콥터에서는 좌측으로 Rolling 현상
+이 발생한다.
+[그림 3-39] 양력 불균형

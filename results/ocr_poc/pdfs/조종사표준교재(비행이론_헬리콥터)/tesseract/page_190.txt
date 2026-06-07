@@ -1,0 +1,15 @@
+비 행 이 론 ( 헬 리 콤 터 )
+( Flight Theory /
+
+1장 28h 무 게 중 심과 균 형 3 장 Blade 트 래 킹 과 진 동 분 석
+1.1 중 량 3.1 7#2(General)
+1.2 83 3.2 Main Rotor 및 Tail Rotor 트 래 킹
+1.3 중 량과 평형 계 산 (Main & Tail Rotor Tracking)
+1.4 #e1Se 외 부 슬 링 운 용 3.3 정 적 & 동 적 균 형
+
+(Static & Dynamic Balancing)
+2 장 Helse 성 능
+2.1 성 능 에 영 향 을 주 는 요 소 들
+2 MS 차 트
+
+ie)

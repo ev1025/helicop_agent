@@ -1,0 +1,19 @@
+비행이론(헬리콥터)
+·97  
+3.7   헬리콥터의 구조 및 시스템 고장 
+(Helicopter Structure and System Failure)
+3.7.1 기화기 결빙(Carburetor Icing)
+기화기 결빙(Carburetor Icing)은 비행 중 어느 
+단계에서도 발생할 수 있지만, 특히 강하 시 같이 감
+소된 출력을 적용하고 있을 때 더욱 위험하다. 출력
+을 증가시키기 전까지 강하하는 동안에는 인지하지 
+못할 수 있다. Carburetor Icing의 조짐은 엔진 회
+전속도 또는 매니폴드 압력의 감소, Carburetor 온
+도 게이지가 안전 운용 범위를 초과하여 지시, 엔진
+의 거친 소음을 통해 나타나게 된다. 
+회전속도 또는 매니폴드 압력의 변화는 다양한 요
+인에 의해 나타나는 만큼, Carburetor Icing의 조건 
+내에서는 면밀하게 Carburetor 온도 게이지를 확인
+[그림 2-96] R-22 Carburetor 온도 게이지
+[그림 2-97] 기화기 결빙(Carburetor Icing)
+ [그림 2-98] 기화기 난방 계통

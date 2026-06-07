@@ -1,0 +1,30 @@
+헬리콥터의 구조와 시스템
+56·
+확한 위상을 확보하기 위해 자신들의 중립 위치와 
+같은 선상에서 Rotor Blade가 장착이 되어야 한다. 
+댐퍼 로드는 댐퍼가 무부하 상태에 연결되어 있도록 
+조절되어 있다. 이렇게 하지 않으면 Rotor Blade는 
+중립 위치에서 앞으로 또는 뒤로 영구적으로 치우
+쳐지는 결과를 가져오게 되며 이로 인해 회전할 때 
+Rotor 장치에 불균형을 가져오게 되고 그 결과로 진
+동과 지면 공진을 만들게 된다.
+2.5   Tail Rotor 시스템(Tail Rotor System)
+2.5.1   Tail Rotor 구동장치(Tail Rotor Drive Systems)
+Tail Rotor 구동장치(Tail Rotor Drive Systems)
+는 Main Transmission으로부터 구동되는 구동축
+과 Tail 부분에 장착된 Tail rotor Transmission
+으로 구성되어 있다. 구동축은 하나의 긴 샤프트로 
+되어 있거나 여러 개의 짧은 샤프트로 이어져 있으
+며, 샤프트 양쪽에는 커플링이 장착되어 있다. Tail 
+Rotor 구동장치는 Tail Rotor를 구동하기 위한 직
+각 구동장치와 Tail Rotor 회전속도를 적절하게 맞
+춰 주는 Transmission으로 구성되어 있다.
+Tail Rotor는 Power를 증가시켜 주는 Pylon 또는 
+Vertical Fin 형식의 중간 기어 박스(Intermediate 
+Gearbox)를 가지고 있다.
+테일 붐(Tail Boom)은 동체가 끝나는 부분에서
+부터 유선형으로 스트링거와 외피로 구성되어 있으
+며, 후미의 끝단(Edge of Tail)까지 연결되어 있다. 
+Tail Rotor 구동축(Tail Rotor Drive Shaft)을 보
+[그림 2-58] Anti-Torque 구동장치
+[그림 2-57] 탄성체 댐퍼

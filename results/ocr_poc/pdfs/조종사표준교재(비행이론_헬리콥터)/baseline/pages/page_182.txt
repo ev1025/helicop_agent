@@ -1,0 +1,50 @@
+비행이론(헬리콥터)
+·175  
+의존한다. 각 Tail Rotor Blade의 피치와 받음각은 
+Tail Rotor의 추력을 결정하며, 이것들의 변화는 생
+성되는 추력의 양을 변화시킨다. 조종사의 Pedal 입
+력은 Tail Rotor에서 나오는 추력에 영향을 미친다. 
+같은 Pedal 입력에서 생성된 추력의 양을 변화시키
+는 것은 불균형을 만든다. 이 불균형이 극대화되면 
+Yawing 하는 헬리콥터를 효과적으로 조종하지 못
+하고 LTE가 일어나는 결과를 초래한다.
+LTE의 주된 원인은 다음과 같다.
+1.   Tail Rotor 구성품에 영향을 주는 Main Rotor
+에 의한 공기 흐름과 내리 흐름
+2.   Main Rotor Blade에서 형성된 와류(Vortices)
+가 Main Rotor Blade 끝단에서 Tail Rotor 
+Blade로 갈 때
+3.   난기류와 다른 자연 현상이 Tail Rotor 근처에 
+흐를 때
+4.   높은 Power 세팅은 Main Rotor Blade 피치각
+을 크게 만들고 Main Rotor Blade의 하강풍을 
+생성하여, 헬리콥터가 낮은 Power 상태일 때
+보다 더 많은 난기류를 생성한다.
+  Main Rotor Disk 간섭 
+ 
+(Main Rotor Disk Interference, 285도~315도)
+왼쪽 전면에서 10~30Kts 속도로 바람이 불어오
+면 상대풍으로 인하여 Main Rotor의 와류가 Tail 
+Rotor 쪽으로 흐르게 되어, Tail Rotor는 심한 난
+기류(Rotor 디스크 와류 영향) 속에서 작동하게 된
+다. 헬리콥터를 오른쪽으로 회전시킬 때 Tail Rotor
+는 Main Rotor의 와류 영역에 들어가게 되고 Tail 
+Rotor의 추력을 감소시킨다. 다시 말하면, Main 
+Rotor의 와류가 Tail Rotor 디스크를 통과하기 때
+문에 Tail Rotor에 흐르는 공기 흐름에 변화가 발생
+하여 추력이 감소한다. 
+Rotor 디스크의 와류 영향으로 초기에는 Tail 
+Rotor의 받음각이 커져 Tail Rotor의 추력이 증가하
+기 때문에, 동일한 회전속도를 유지하기 위해서는 오
+른쪽 Pedal을 밟아 Tail Rotor의 추력을 감소시켜
+야 한다. 그러나 Main Rotor의 와류가 Tail Rotor를 
+지나고 나면 Tail Rotor의 받음각이 줄어들어 추력
+이 감소되기 때문에, 오른쪽 방향으로 Yawing 현상
+이 증가된다. 헬리콥터의 회전속도를 유지하기 위하
+여 오른쪽 Pedal에 압을 주고 있던 조종사는 갑작스
+러운 가속 현상에 매우 당황할 수도 있다. 또한 Tail 
+Rotor의 추력 감소가 갑자기 일어나기 때문에 만약 
+곧바로 수정 조작을 하지 않으면 조종이 불가할 정도
+로 Mast를 중심으로 급속한 회전이 유발된다. 이러
+한 영역에서 작동할 때에는 Tail Rotor의 추력이 갑
+[그림 3-61] Main Rotor Disk 간섭

@@ -1,0 +1,50 @@
+비행이론(헬리콥터)
+·25  
+앞쪽에서 최대 아래로 내려가고, 왼쪽 Rotor Blade
+는 뒤쪽에서 최대 위로 들려 회전면은 앞쪽으로 기
+울어지게 된다.
+1.5   Anti-Torque Pedal  
+(Anti-Torque Pedals)
+조종사 발밑에 위치한 Anti-Torque Pedal(이하 
+Pedal이라 한다.)은 Tail Rotor Blade의 피치를 조
+정하여 추력에 변화를 주거나, 다른 Anti-Torque 
+시스템으로 이루어져 있다. 
+헬리콥터 동체는 Main Rotor Blade 회전방향의 
+반대방향으로 회전하려는 토크가 발생하게 된다. 이 
+토크를 보상하기 위해, 대부분의 헬리콥터에는 Tail 
+Rotor 또는Anti-Torque 시스템이 장착되도록 설
+계되어 있다. 
+Pedal은 조종사가 Tail Rotor Blade의 피치각
+을 조종함으로써 비행 중 종적 트림(Longitudinal 
+Trim)을 유지할 수 있게 해주며, 제자리비행
+(Hovering) 시 원하는 방향으로 360도 회전(Hover 
+Turn)을 할 수 있게 해준다. Pedal은 Tail Rotor 기
+어 박스의 피치 변경 부분에 연결되고, Tail Rotor 
+Blade의 피치각을 증가 또는 감소시킬 수 있도록 되
+어 있다.
+Tail Rotor는 헬리콥터가 제자리비행(Hovering) 
+상태이거나 제자리비행 선회 시 Heading을 조종
+할 뿐만 아니라, Main Rotor의 Torque에 대한 반
+작용에도 사용된다. 제자리비행 선회는 일반적으로 
+‘Pedal 선회(Pedal Turn)’라고도 불린다.
+유효 전이 양력 속도에 도달하면 Pedal은 헬리콥
+터를 종적 트림에 맞추기 위해 Torque를 보상하며, 
+Cyclic은 원하는 방향으로 기수를 변경하는 데 사용
+된다.
+Tail Rotor의 추력은 Tail Rotor Blade의 피치각
+에 따라 달라진다. 이 피치각은 포지티브(Positive), 
+네거티브(Negative) 또는 제로(Zero)가 될 수 있다. 
+Positive 피치각은 오른쪽으로 꼬리부분(Tailboom)
+을 이동시키며, Negative 피치각은 왼쪽으로 이동, 
+Zero 피치각은 추력을 생산하지 않는다. 일반적으
+로 Main Rotor의 토크를 상쇄하기 위해 Tail Rotor
+의 최대 Positive 피치각은 최대 Negative 피치각보
+다 크게 설계된다.
+자동 활공(Autorotation)을 하는 동안  
+Transmission의 항력(Drag)은 기수를 왼쪽으
+로 돌리는 경향이 있기 때문에 Tail Rotor는 왼쪽
+(Negative 피치각)으로 추력을 발생시키는 능력이 
+있어야 한다.
+중립 위치에서 오른쪽 Pedal을 적용하면 Tail 부
+분이 왼쪽으로 돌게 되어 헬리콥터의 기수를 오른쪽
+[그림 2-4] Anti-Torque Pedal

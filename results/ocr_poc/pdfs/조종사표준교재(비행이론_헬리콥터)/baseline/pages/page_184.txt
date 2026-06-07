@@ -1,0 +1,40 @@
+비행이론(헬리콥터)
+·177  
+2.5   Single Rotor 형태 이외의 헬리콥터 
+조종 원리
+2.5.1 Tandem Rotors Helicopter
+Tandem Rotor가 장착된 헬리콥터는 [그림 
+3-64]과 같이 2개의 Main Rotor가 반대로 회전하
+여 각각의 Main Rotor에서 발생된 토크가 서로 균
+형을 이루므로 토크 상쇄를 위한 Tail Rotor가 없
+으며 Main Rotor가 양력 생성 및 비행 제어력을 모
+두 담당하게 된다. Transmission은 전·후방 Main 
+Rotor에 동시에 연결되어 있어 어느 하나의 엔진에 
+고장이 발생하더라도 1개 엔진으로도 작동할 수 있
+도록 교차 결합되어 있다. 
+  Tandem Rotor 헬리콥터의 상승 및 강하 
+ 
+(Climb and Descent)
+Tandem Rotor 헬리콥터의 경우에는 두 개
+의 Main Rotor가 양력과 추력을 조종한다. [그림 
+3-65]에서 보는 바와 같이 Collective를 올리면 6
+개의 Main Rotor Blade 피치각은 동시에 증가하며 
+헬리콥터는 상승하게 된다. 
+  Tandem Rotor 헬리콥터의 자세 조종 
+(Pitch Control)
+Tandem Rotor 헬리콥터의 자세 조종(세로 방향 
+조종)은 가로축에 대한 동체의 피치 자세 변화를 
+발생시키는 전방 및 후방 Main Rotor의 차동 추력
+(콜렉티브 피치)에 의해 조종되며 이를 차등 콜렉
+티브 피치(Differential Collective Pitch, DCP)라
+고 한다.
+[그림 3-66]과 같이 Cyclic을 전방으로 밀면 전
+방 Main Rotor의 피치각을 감소시키고 후방 Main 
+Rotor의 피치각을  증가시켜 기수가 내려가며 속도
+는 증가된다.
+Cyclic을 전방으로 밀면 전방 Main Rotor의 피치
+각을 감소시키고 후방 Main Rotor의 피치각을  증
+가시켜 기수가 내려가며 속도는 증가된다.
+[그림 3-64] Tandem Rotors 회전방향
+[그림 3-65] Tandem Rotor 헬리콥터의 상승 및 강하
+[그림 3-66] Tandem Rotor 헬리콥터의 자세 조종

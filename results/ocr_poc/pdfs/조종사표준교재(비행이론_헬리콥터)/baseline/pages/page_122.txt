@@ -1,0 +1,37 @@
+비행이론(헬리콥터)
+·115  
+여 수정하여야 하며, 지구는 1시간당 15도씩 자전하
+므로 15분마다 점검하여 3도 이상 차이가 나는 경우
+에는 계기비행용으로 사용할 수 없다.
+Flux Gate
+Flux Gate는 비행 중 주기적으로 나침반
+(Magnetic Compass)과 비교하여 Heading을 수정
+하는 불편을 없애기 위해, Directional Gyro가 항상 
+정확한 자북(Magnetic North)에 일치하도록 만들
+어 주는 장치이다. 
+Flux Gate는 코일(Coil)을 감은 쇠막대에 자기장
+(Magnetic Field)이 흐르면 전류가 유도되는 성질을 
+이용한 것인데, 그림에서와 같이 Magnetic Flux(어
+떤 면적을 통과하는 자기력선의 총합, 자기력의 밀
+도)를 감지하는 3개의 연철(Soft Iron)에 코일이 감
+겨져 있다. 코일이 감겨져 있는 연철에 Magnetic 
+Flux가 통과하게 되면 전류가 발생하는데, 발생하
+는 전류의 크기를 비교하여 항공기의 방향을 나타내
+게 된다. 
+Remote Indicating Compass
+Remote Indicating Compass는 Directional 
+Gyro로 작동되는 방향 계기(Heading Indicator)의 
+오차를 줄이기 위해 고안된 장치이다. 작동 원리는 
+방향 계기에서 측정된 방위와 Flux Gate에서 측정
+된 방위가 다르면, Directional Gyro를 구동하는 모
+터에 그 차이(Error Signal)를 보내 자이로를 수정
+하여 Flux Gate에서 측정된 방향과 일치하도록 해 
+주는 것이다. 
+조종사는 주기적으로 방향 계기와 나침반을 비
+교하여 차이가 발생할 경우, 방향 계기의 자이로를 
+Free Mode로 선택한 후 Slaving Control을 참고하
+여 시계 방향 혹은 반시계 방향을 선택해 나침반의 
+방향과 일치하도록 수정하여야 한다. 수정이 완료되
+면 Free Mode에서 Slave Mode로 다시 Settig 하
+여야 한다.
+[그림 2-90] The induced current in each of the three pickup coils changes with the heading of the aircraft. Or other vessel

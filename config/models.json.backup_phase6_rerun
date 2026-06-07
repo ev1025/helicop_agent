@@ -1,0 +1,54 @@
+{
+  "llm_model": "meta-llama/Meta-Llama-3-8B-Instruct",
+  "embedding_model": "BAAI/bge-large-en-v1.5",
+  "use_embedding_gpu": true,
+  "generation_params": {
+    "max_new_tokens": 512,
+    "temperature": 0.6,
+    "repetition_penalty": 1.1,
+    "top_p": 0.9,
+    "top_k": 50,
+    "do_sample": true
+  },
+  "_comments": {
+    "llm_model_options": [
+      "MLP-KTLim/llama-3-Korean-Bllossom-8B",
+      "Qwen/Qwen3-Omni-30B-A3B-Instruct",
+      "Bllossom/llama-3.2-Korean-Bllossom-3B",
+      "Qwen/Qwen2.5-3B-Instruct",
+      "Qwen/Qwen2.5-1.5B-Instruct",
+      "Qwen/Qwen2.5-0.5B",
+      "LGAI-EXAONE/EXAONE-3.5-2.4B-Instruct",
+      "meta-llama/Llama-3.2-3B-Instruct",
+      "Qwen/Qwen2.5-7B-Instruct",
+      "Qwen/Qwen2.5-14B-Instruct",
+      "LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct",
+      "Mistral-Nemo-Instruct-2407",
+      "Yi-1.5-9B-Chat",
+      "Qwen/Qwen2.5-72B-Instruct",
+      "meta-llama/Llama-3.1-70B-Instruct",
+      "Qwen/Qwen2.5-32B-Instruct",
+      "meta-llama/Llama-3.1-34B-Instruct",
+      "google/gemma-2-27b-it",
+      "Yi-1.5-34B-Chat",
+      "Yi-1.5-32B-Chat",
+      "mistralai/Mistral-Nemo-Instruct-2407",
+      "Cherry-LLM-34B",
+      "upstage/SOLAR-10.7B-Instruct-v1.0"
+    ],
+    "embedding_model_options": [
+      "dragonkue/snowflake-arctic-embed-l-v2.0-ko",
+      "jhgan/ko-sroberta-multitask",
+      "BM-K/KoSimCSE-roberta-multitask",
+      "bespin-global/klue-sroberta-base-continue-learning-by-mnr"
+    ],
+    "llm_model_description": "도구 호출/한글 RAG 요구 시 권장 모델: Qwen/Qwen2.5-7B-Instruct (7B, 최신 tool-use 튜닝), LGAI-EXAONE/EXAONE-3.5-7.8B-Instruct (한국어 특화 7.8B), Yi-1.5-9B-Chat (9B 다국어), Mistral-Nemo-Instruct-2407 (12B이지만 경량 양자화 가능). meta-llama/Llama-3.2-3B-Instruct는 HuggingFace gate 승인이 필요하므로 즉시 사용 불가.",
+    "reranker_model_options": [
+      "dragonkue/bge-reranker-v2-m3-ko",
+      "BAAI/bge-reranker-base",
+      "Dongjin-kr/ko-reranker"
+    ]
+  },
+  "reranker_model": "BAAI/bge-reranker-base",
+  "use_reranker_gpu": true
+}

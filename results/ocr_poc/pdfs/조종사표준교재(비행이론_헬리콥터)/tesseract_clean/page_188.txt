@@ -1,0 +1,1 @@
+\ Longitudinal Cyclic Pitch Thrust Roll Yaw [2! 3-77] Tilt Rotor 회 전 익 기 의 조 종 원 리 회 를 할 수 YA 된 다 . 만 약 Tilt Rotor 회 전 익 기 가 우 측 으 로 선 회 시 슬 립 (5100) 이 발 생 하 는 경 우 AS RotorS 앞 으 로 기울이고 우 측 Rotors 뒤 로 기 울 여 기 수 를 AA 방 향 으 로 회 전 시 킴 으 로 써 구 심 력 과 원 심 력 의 균 형 을 유 지 한 다 . Tilt Rotor 회 전 익 기 의 조 종 원 리 는 [ 그 림 3-'77| 와 같 다 . 비 행 이 론 ( 헬 리 곱 터 ) 700002 ' 181

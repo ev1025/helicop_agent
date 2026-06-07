@@ -1,0 +1,6 @@
+{
+  "log_level": "INFO",
+  "log_file": "app.log",
+  "log_format": "%(asctime)s - %(name)s -%(levelname)s -%(message)s",
+  "debug_verbose": false
+}

@@ -1,0 +1,31 @@
+4장 비행계기
+41 동 정압 계기 (Pitot-static System Instruments)
+용하고   속도계는 피토 튜브(Pitot Tube에서 즉정 된 공기의 전입(동안+정압과 정압공에서 즉정된 정 압울 이용하여 축정되다.
+동 정압 계기능 항공기 주위에 흐르는 공기의 압 력(Dynamic Pressure, Static Pressure)올 축정하 여 압력의 크기와 변화틀 나타내 주는 계기로 고도 계,  속도계   승강계 등이 있다. 고도계와 승강계는 정입공(Static Port)에서 축정된 공기의 정압울 이
+4.1.1 기압 고도계(Sensitive Altimeter)
+기압 고도계 (Sensitive Altimeter)는 비행하고 있는 항공기  주위의  정입(Static Pressure)올 즉
+Airspeed indicator (ASI)
+Vertical speed indicator (VSI)
+Altimeter
+2 3 VuCLUO oa mVV s
+230
+0 F0 CO m N 80 150
+NT 2
+CoN
+3 6 4 5
+3 2 1
+Pressure chamber
+Static chamber
+Static port
+Baffle plate
+Pitot tube
+Drain hole
+Ram air
+Static hole
+ON OFF
+Heater (35 watts)
+Heater (100 watts)
+Pitot heater switch
+Alternate static source
+[그림 271] 동 정압 계기
+102

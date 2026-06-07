@@ -1,0 +1,116 @@
+{
+  "model": "paddleocr",
+  "n_pages": 21,
+  "n_failed": 0,
+  "total_chars": 7420,
+  "total_seconds": 66.28,
+  "avg_seconds_per_page": 3.16,
+  "warmup_seconds": 1.28,
+  "timings": [
+    {
+      "page": 0,
+      "seconds": 0.92,
+      "chars": 111
+    },
+    {
+      "page": 1,
+      "seconds": 0.08,
+      "chars": 0
+    },
+    {
+      "page": 2,
+      "seconds": 0.77,
+      "chars": 75
+    },
+    {
+      "page": 3,
+      "seconds": 6.0,
+      "chars": 669
+    },
+    {
+      "page": 27,
+      "seconds": 0.08,
+      "chars": 0
+    },
+    {
+      "page": 28,
+      "seconds": 3.73,
+      "chars": 399
+    },
+    {
+      "page": 44,
+      "seconds": 1.56,
+      "chars": 259
+    },
+    {
+      "page": 54,
+      "seconds": 4.1,
+      "chars": 510
+    },
+    {
+      "page": 76,
+      "seconds": 12.24,
+      "chars": 1306
+    },
+    {
+      "page": 109,
+      "seconds": 4.5,
+      "chars": 586
+    },
+    {
+      "page": 123,
+      "seconds": 4.1,
+      "chars": 492
+    },
+    {
+      "page": 131,
+      "seconds": 0.08,
+      "chars": 0
+    },
+    {
+      "page": 140,
+      "seconds": 2.8,
+      "chars": 317
+    },
+    {
+      "page": 155,
+      "seconds": 11.53,
+      "chars": 1287
+    },
+    {
+      "page": 172,
+      "seconds": 5.19,
+      "chars": 399
+    },
+    {
+      "page": 188,
+      "seconds": 2.33,
+      "chars": 370
+    },
+    {
+      "page": 189,
+      "seconds": 0.21,
+      "chars": 0
+    },
+    {
+      "page": 190,
+      "seconds": 2.51,
+      "chars": 245
+    },
+    {
+      "page": 226,
+      "seconds": 2.96,
+      "chars": 338
+    },
+    {
+      "page": 227,
+      "seconds": 0.08,
+      "chars": 0
+    },
+    {
+      "page": 228,
+      "seconds": 0.51,
+      "chars": 57
+    }
+  ]
+}

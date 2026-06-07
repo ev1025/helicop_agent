@@ -1,0 +1,23 @@
+비행이론(헬리콥터)
+·113  
+  Gyroscopic systems의 동력원(source of power)
+자이로의 특성(강직성, 세차성)을 나타내려면 자
+이로를 고속으로 회전시켜야 한다. 자이로를 고
+속 회전시키기 위한 힘은 진공 압력(Vacuum 
+Pressure)과 전기(Electrical Power)를 이용한다. 
+Vacuum Pressure를 발생시키는 진공펌프는 주로 
+자세계(Attitude Indicator)와 방향 지시계의 자이
+로(Directional Gyro)를 회전시키고, 선회계(Turn 
+Coordinator)의 자이로는 전기를 이용하여 회전시
+킨다. 그렇게 함으로써 진공펌프가 고장 나더라도 
+전기로 작동되는 선회계가 작동하여 자세계를 대체
+할 수 있게 한다. 
+자이로를 작동시키기 위해서는 적절한 진공 압력
+(Vacuum Pressure)이 유지되어야 한다. 일반적으
+로 적절한 진공 압력은 4.5~5.5inHg이며 Suction 
+Gauge에 녹색으로 정상 작동 범위를 표시한다. 진
+공 압력이 정상 범위 이하일 경우, 비행계기는 정상
+적으로 지시하지 않으므로 조종사는 주의 깊게 주기
+적으로 Suction Gauge를 관찰하여야 한다.
+[그림 2-87] 자이로의 세차성(Precession) 
+[그림 2-88] A typical pump-driven vacuum system for powering gyroscopic instruments
