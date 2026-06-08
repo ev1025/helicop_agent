@@ -1,0 +1,3 @@
+01-ai/Yi-1.5-9B-Chat|none|bfloat16|0.70|4096
+01-ai/Yi-1.5-6B-Chat|none|bfloat16|0.70|4096
+casperhansen/mistral-nemo-instruct-2407-awq|awq_marlin|auto|0.70|4096

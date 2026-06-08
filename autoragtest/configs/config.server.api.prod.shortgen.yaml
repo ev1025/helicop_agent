@@ -1,0 +1,142 @@
+# AutoRAG 본 평가 config — 다중 module 등록 + 4 임베딩 + 3 reranker
+# wrapper가 __MODEL_PLACEHOLDER__,  를 sed로 교체
+# 4 임베딩 vectordb 등록 → AutoRAG가 best 자동 선정
+
+vectordb:
+  - name: chroma_arctic_ko
+    db_type: chroma
+    client_type: persistent
+    collection_name: heli_arctic_ko_prod
+    path: ./autorag_chroma_arctic_ko_prod
+    embedding_model:
+      - type: huggingface
+        model_name: dragonkue/snowflake-arctic-embed-l-v2.0-ko
+    embedding_batch: 64
+    similarity_metric: cosine
+  - name: chroma_bge_m3
+    db_type: chroma
+    client_type: persistent
+    collection_name: heli_bge_m3_prod
+    path: ./autorag_chroma_bge_m3_prod
+    embedding_model:
+      - type: huggingface
+        model_name: BAAI/bge-m3
+    embedding_batch: 32
+    similarity_metric: cosine
+  - name: chroma_koe5
+    db_type: chroma
+    client_type: persistent
+    collection_name: heli_koe5_prod
+    path: ./autorag_chroma_koe5_prod
+    embedding_model:
+      - type: huggingface
+        model_name: nlpai-lab/KoE5
+    embedding_batch: 32
+    similarity_metric: cosine
+  - name: chroma_kure_v1
+    db_type: chroma
+    client_type: persistent
+    collection_name: heli_kure_v1_prod
+    path: ./autorag_chroma_kure_v1_prod
+    embedding_model:
+      - type: huggingface
+        model_name: nlpai-lab/KURE-v1
+    embedding_batch: 32
+    similarity_metric: cosine
+
+node_lines:
+  # ============================================================
+  # 1) Retrieval — Lexical (BM25) + Semantic (4 vectordb) + Hybrid (RRF/CC)
+  # ============================================================
+  - node_line_name: retrieve_line
+    nodes:
+      - node_type: lexical_retrieval
+        top_k: 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: bm25
+            bm25_tokenizer: ko_kiwi
+
+      - node_type: semantic_retrieval
+        top_k: 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: vectordb
+            vectordb: chroma_arctic_ko
+          - module_type: vectordb
+            vectordb: chroma_bge_m3
+          - module_type: vectordb
+            vectordb: chroma_koe5
+          - module_type: vectordb
+            vectordb: chroma_kure_v1
+
+      - node_type: hybrid_retrieval
+        top_k: 10
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: hybrid_rrf
+          - module_type: hybrid_cc
+            normalize_method: [mm, tmm]
+            weight_range: [[0.0, 1.0]]
+            test_weight_size: 21
+
+      # ============================================================
+      # 2) Passage Reranker — 3 rerankers (한국어 특화 포함)
+      # ============================================================
+      - node_type: passage_reranker
+        top_k: 3   # 4K context 모델 안전 마진
+        strategy:
+          metrics: [retrieval_f1, retrieval_recall, retrieval_precision, retrieval_ndcg, retrieval_mrr, retrieval_map]
+        modules:
+          - module_type: flag_embedding_reranker
+            model_name: BAAI/bge-reranker-v2-m3
+          - module_type: flag_embedding_reranker
+            model_name: dragonkue/bge-reranker-v2-m3-ko
+          - module_type: sentence_transformer_reranker
+            model_name: bongsoo/kpf-cross-encoder-v1
+
+  # ============================================================
+  # 3) Prompt Maker — 2 strategy (fstring + long_context_reorder)
+  # ============================================================
+  - node_line_name: prompt_line
+    nodes:
+      - node_type: prompt_maker
+        strategy:
+          metrics: [bleu, meteor, rouge]
+        modules:
+          - module_type: fstring
+            prompt: |
+              다음 문서들을 참고해서 질문에 한국어로 정확히 답하세요.
+              {retrieved_contents}
+              질문: {query}
+              답변:
+
+  # ============================================================
+  # 4) Generator — vllm module (Python LLM 직접). 모델은 wrapper가 교체
+  # ============================================================
+  - node_line_name: generate_line
+    nodes:
+      - node_type: generator
+        strategy:
+          metrics:
+            - metric_name: bleu
+            - metric_name: rouge
+            - metric_name: meteor
+            - metric_name: sem_score
+              embedding_model: huggingface_bge_m3
+            - metric_name: bert_score
+              lang: ko
+        modules:
+          - module_type: llama_index_llm
+            llm: openailike
+            model: __MODEL_PLACEHOLDER__
+            api_base: http://127.0.0.1:8000/v1
+            api_key: EMPTY
+            is_chat_model: true
+            context_window: 8192
+            max_tokens: 200
+            temperature: 0.1
+            top_p: 0.95

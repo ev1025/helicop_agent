@@ -1,0 +1,27 @@
+# 데이터 보호 (도메인 매뉴얼 원본/파생 데이터 commit 금지)
+*.parquet
+data/
+corpus*
+qa*.parquet
+benchmark_*/
+*chroma*
+
+# Python
+__pycache__/
+*.py[cod]
+*.egg-info/
+.venv/
+.venv_tf5/
+*.log
+
+# 임시
+.cache/
+.idea/
+.vscode/
+.DS_Store
+*.swp
+*.bak
+
+# 결과 파일은 명시적으로 추적
+!results/*.csv
+!results/*.md

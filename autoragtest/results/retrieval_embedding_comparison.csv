@@ -1,0 +1,5 @@
+rank,embedding_model,ndcg,mrr,map,f1,recall,precision,exec_time_sec,is_best
+1,nlpai-lab/KURE-v1,0.7693,0.6870,0.6870,0.1916,0.8797,0.1089,0.110,True
+2,dragonkue/snowflake-arctic-embed-l-v2.0-ko,0.7648,0.6838,0.6838,0.1895,0.8734,0.1076,0.100,False
+3,BAAI/bge-m3,0.7557,0.6717,0.6717,0.1897,0.8797,0.1076,0.112,False
+4,nlpai-lab/KoE5,0.6738,0.5796,0.5796,0.1830,0.8481,0.1038,0.138,False

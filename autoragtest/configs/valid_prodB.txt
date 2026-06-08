@@ -1,0 +1,6 @@
+google/gemma-3-12b-it|none|auto|0.70|7000
+google/gemma-3n-E2B-it|none|auto|0.70
+google/gemma-4-E2B-it|none|auto|0.70|7000
+cyankiwi/gemma-4-E4B-it-AWQ-INT4|compressed-tensors|auto|0.70
+cyankiwi/gemma-4-26B-A4B-it-AWQ-4bit|compressed-tensors|auto|0.70
+RedHatAI/gemma-3-27b-it-quantized.w4a16|compressed-tensors|auto|0.70|8192

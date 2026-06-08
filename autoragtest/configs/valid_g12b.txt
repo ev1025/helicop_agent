@@ -1,0 +1,1 @@
+RedHatAI/gemma-3-12b-it-quantized.w4a16|compressed-tensors|auto|0.70|8192
