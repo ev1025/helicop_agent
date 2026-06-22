@@ -1,4 +1,4 @@
-# autoragtest — AutoRAG 27-모델 평가 산출물 (helicop_agent 하위)
+# autorag_bench — AutoRAG 27-모델 평가 산출물 (helicop_agent 하위)
 
 이 폴더는 [`helicop_agent`](../) 프로젝트의 **공개용 평가 산출물 정리본**입니다. 운영 코드는 상위 [`../autorag/`](../autorag/)에 별도로 있고, 이 폴더는 외부 공유/보고 목적의 결과 + 스크립트 + 문서 모음입니다.
 
@@ -6,11 +6,11 @@
 
 ## 폴더 정체성
 
-| 구분 | 이 폴더 (`autoragtest/`) | 상위 (`../autorag/`) |
+| 구분 | 이 폴더 (`autorag_bench/`) | 상위 (`../autorag/`) |
 |---|---|---|
 | 역할 | 평가 산출물 공개 정리본 | LangGraph 에이전트(`agent_v2`) 운영 모듈 |
 | 핵심 파일 | `results/*.csv`, `docs/*.md` | `adapter.py`, `run_autorag.py` |
-| GitHub | https://github.com/ev1025/autoragtest | (비공개) |
+| GitHub | ev1025/helicop_agent 의 `autorag_bench/` 하위 | ev1025/helicop_agent 의 `autorag/` 하위 |
 | 데이터 포함 | ❌ 라이선스/보안 제외 | ✅ 운영 데이터 |
 
 상위 `adapter.py`는 AutoRAG가 찾은 best_config(KURE-v1 + HybridCC + dragonkue-ko reranker)를 그대로 LangGraph `rag_search` 도구로 swap-in합니다 — 즉 이 폴더의 평가 결과가 곧장 실서비스 RAG 파이프라인이 됩니다.
@@ -78,7 +78,7 @@ README/문서에 다음 단어 명시 금지:
 - 표기 시 "헬리콥터 정비 매뉴얼 (도메인 데이터)"로 일반화
 
 ### 3. Git push 정책
-- **GitHub** (`github.com`) push는 사용자 명시 요청 시 가능 — 이 폴더는 `ev1025/autoragtest`로 공개됨
+- **GitHub** (`github.com`) push는 사용자 명시 요청 시 가능 — 이 폴더는 `ev1025/helicop_agent` repo 의 `autorag_bench/` 하위로 공개됨 (옛 별도 repo `ev1025/autoragtest` 는 restructure 때 `helicop_agent` 로 rename됨)
 - **사내 GitLab** push 절대 금지
 
 ---
